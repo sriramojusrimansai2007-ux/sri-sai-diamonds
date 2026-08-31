@@ -6,6 +6,7 @@ import { initCatalogue } from './modules/catalogue.js';
 import { initQuote, add as addToQuote } from './modules/quote.js';
 import { initEnquiry } from './modules/enquiry.js';
 import { initGallery } from './modules/gallery.js';
+import { initRates } from './modules/rates.js';
 
 /* ---- Marquee ---- */
 initMarquee([
@@ -115,6 +116,7 @@ try {
   initCatalogue(addToQuote, gallery.open);
   initQuote();
   initEnquiry();
+  initRates();
 } catch (err) {
   console.error('Initialization error:', err);
 }

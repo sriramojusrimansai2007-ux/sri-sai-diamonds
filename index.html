@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow">
 
   <!-- Security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; frame-src https://maps.google.com https://www.google.com; connect-src 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; frame-src https://maps.google.com https://www.google.com; connect-src 'self' https:;">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Sri Sai Diamonds &amp; Tools — Heritage Jewellery &amp; Workshop Supplies">
@@ -55,6 +55,7 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav__links" id="navLinks">
+      <li><a href="#rates">Live Rates 🔴</a></li>
       <li><a href="#categories">Collections</a></li>
       <li><a href="#catalogue">Catalogue</a></li>
       <li><a href="#trust">Why Sri Sai</a></li>
@@ -80,8 +81,8 @@
         From 916 BIS Hallmarked gold and 999 fine silver bullion to IGI-certified natural diamonds, astrological gemstones, and master jeweller precision tools — proudly serving artisans, jewellers, and discerning buyers under one trusted roof.
       </p>
       <div class="reveal hero__cta">
-        <a class="btn btn--solid" href="#catalogue">Explore Collections ▾</a>
-        <a class="btn" href="#visit">Visit Our Lounge</a>
+        <a class="btn btn--solid" href="#rates">View Live Rates 📈</a>
+        <a class="btn" href="#catalogue">Explore Collections ▾</a>
       </div>
       <div class="hero__index reveal">
         <div><strong>5+</strong><span>Core Collections</span></div>
@@ -134,6 +135,266 @@
 
   <!-- ============ MARQUEE ============ -->
   <div class="marquee" aria-hidden="true"><div class="marquee__track" id="mq"></div></div>
+
+  <!-- ============ LIVE RATES SECTION ============ -->
+  <section class="section rates-sec" id="rates">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Telangana Bullion Market Benchmark</span>
+          <h2 class="sec-title">Live Gold &amp; Silver <em>Rates</em></h2>
+        </div>
+      </div>
+
+      <!-- Rates Meta Status Bar -->
+      <div class="rates-meta-bar reveal">
+        <div class="rates-meta-left">
+          <div class="market-status market-status--open" id="marketStatusBadge">
+            <span class="market-status__dot"></span> Bullion Market Open
+          </div>
+          <div class="rates-source-tag">
+            <span>CapsGold / IBJA</span> Aligned Real-Time Feed
+          </div>
+        </div>
+        <div class="rates-meta-right">
+          <div class="rates-timestamp">Updated: <strong id="ratesTimestamp">Live</strong></div>
+          <button class="rates-refresh-btn" id="ratesRefreshBtn" aria-label="Refresh live bullion rates">
+            <span class="rates-refresh-icon">⟳</span> Refresh (<span class="rates-countdown" id="refreshCountdown">60s</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 Core Rate Cards -->
+      <div class="rates-cards-grid reveal">
+        <!-- 24K Gold Card -->
+        <div class="rate-card">
+          <div class="rate-card__top">
+            <div>
+              <h3 class="rate-card__title">24K Pure Gold</h3>
+              <div class="rate-card__purity">999.9 Fine Bullion</div>
+            </div>
+            <div class="rate-card__icon">◈</div>
+          </div>
+          <div class="rate-card__price-main">
+            <span class="rate-card__price-val" id="cardRate24k_1g">₹7,480</span>
+            <span class="rate-card__price-unit">/ 1 gram</span>
+          </div>
+          <ul class="rate-card__breakdown">
+            <li><span>10 Grams (1 Tola)</span> <strong id="cardRate24k_10g">₹74,800</strong></li>
+            <li><span>Purity Standard</span> <strong>99.99%</strong></li>
+            <li><span>Tax / GST</span> <strong>3% Extra</strong></li>
+          </ul>
+        </div>
+
+        <!-- 22K Gold Card -->
+        <div class="rate-card">
+          <div class="rate-card__top">
+            <div>
+              <h3 class="rate-card__title">22K Hallmarked Gold</h3>
+              <div class="rate-card__purity">916 BIS Certified</div>
+            </div>
+            <div class="rate-card__icon">✦</div>
+          </div>
+          <div class="rate-card__price-main">
+            <span class="rate-card__price-val" id="cardRate22k_1g">₹6,855</span>
+            <span class="rate-card__price-unit">/ 1 gram</span>
+          </div>
+          <ul class="rate-card__breakdown">
+            <li><span>8 Grams (1 Pavan)</span> <strong id="cardRate22k_8g">₹54,840</strong></li>
+            <li><span>Purity Standard</span> <strong>91.60%</strong></li>
+            <li><span>Tax / GST</span> <strong>3% Extra</strong></li>
+          </ul>
+        </div>
+
+        <!-- 18K Gold Card -->
+        <div class="rate-card">
+          <div class="rate-card__top">
+            <div>
+              <h3 class="rate-card__title">18K Diamond Gold</h3>
+              <div class="rate-card__purity">750 Casting Grade</div>
+            </div>
+            <div class="rate-card__icon">◇</div>
+          </div>
+          <div class="rate-card__price-main">
+            <span class="rate-card__price-val" id="cardRate18k_1g">₹5,610</span>
+            <span class="rate-card__price-unit">/ 1 gram</span>
+          </div>
+          <ul class="rate-card__breakdown">
+            <li><span>10 Grams</span> <strong id="cardRate18k_10g">₹56,100</strong></li>
+            <li><span>Purity Standard</span> <strong>75.00%</strong></li>
+            <li><span>Usage</span> <strong>Diamond Mounts</strong></li>
+          </ul>
+        </div>
+
+        <!-- 999 Silver Card -->
+        <div class="rate-card">
+          <div class="rate-card__top">
+            <div>
+              <h3 class="rate-card__title">999 Fine Silver</h3>
+              <div class="rate-card__purity">Bullion &amp; Pooja Grade</div>
+            </div>
+            <div class="rate-card__icon">⚖</div>
+          </div>
+          <div class="rate-card__price-main">
+            <span class="rate-card__price-val" id="cardRateSilver_1g">₹91.50</span>
+            <span class="rate-card__price-unit">/ 1 gram</span>
+          </div>
+          <ul class="rate-card__breakdown">
+            <li><span>1 Kilogram (1000g)</span> <strong id="cardRateSilver_1kg">₹91,500</strong></li>
+            <li><span>Purity Standard</span> <strong>99.90%</strong></li>
+            <li><span>Tax / GST</span> <strong>3% Extra</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Grid: Detailed Table & Calculator -->
+      <div class="rates-bottom-grid reveal">
+        <!-- Detailed Multi-Purity Rate Table -->
+        <div class="rates-table-wrap">
+          <div class="rates-table-head">
+            <h3>Multi-Weight Price Sheet</h3>
+            <p>Live spot benchmark across standard bullion and jewellery denominations</p>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="rates-table">
+              <thead>
+                <tr>
+                  <th>Metal &amp; Purity</th>
+                  <th>1 Gram</th>
+                  <th>8 Grams (Pavan)</th>
+                  <th>10 Grams (Tola)</th>
+                  <th>100 Grams</th>
+                  <th>1 Kilogram</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>24K Gold (999.9)</strong></td>
+                  <td id="tbl24k_1g">₹7,480</td>
+                  <td id="tbl24k_8g">₹59,840</td>
+                  <td id="tbl24k_10g">₹74,800</td>
+                  <td id="tbl24k_100g">₹7,48,000</td>
+                  <td id="tbl24k_1kg">₹74,80,000</td>
+                </tr>
+                <tr>
+                  <td><strong>22K Gold (916)</strong></td>
+                  <td id="tbl22k_1g">₹6,855</td>
+                  <td id="tbl22k_8g">₹54,840</td>
+                  <td id="tbl22k_10g">₹68,550</td>
+                  <td id="tbl22k_100g">₹6,85,500</td>
+                  <td id="tbl22k_1kg">₹68,55,000</td>
+                </tr>
+                <tr>
+                  <td><strong>18K Gold (750)</strong></td>
+                  <td id="tbl18k_1g">₹5,610</td>
+                  <td id="tbl18k_8g">₹44,880</td>
+                  <td id="tbl18k_10g">₹56,100</td>
+                  <td id="tbl18k_100g">₹5,61,000</td>
+                  <td id="tbl18k_1kg">₹56,10,000</td>
+                </tr>
+                <tr>
+                  <td><strong>999 Fine Silver</strong></td>
+                  <td id="tblSilver999_1g">₹91.50</td>
+                  <td>—</td>
+                  <td id="tblSilver999_10g">₹915.00</td>
+                  <td id="tblSilver999_100g">₹9,150</td>
+                  <td id="tblSilver999_1kg">₹91,500</td>
+                </tr>
+                <tr>
+                  <td><strong>925 Sterling Silver</strong></td>
+                  <td id="tblSilver925_1g">₹84.60</td>
+                  <td>—</td>
+                  <td id="tblSilver925_10g">₹846.00</td>
+                  <td id="tblSilver925_100g">₹8,460</td>
+                  <td id="tblSilver925_1kg">₹84,600</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="rates-table-note">
+            * Benchmark indicative prices aligned with CapsGold Hyderabad and IBJA spot quotes. Final billing will reflect live transaction rates at counter confirmation.
+          </p>
+        </div>
+
+        <!-- Interactive Metal Price & Purity Calculator -->
+        <div class="calc-card">
+          <div class="calc-card__head">
+            <h3>Live Metal Calculator</h3>
+            <p>Calculate estimated price for custom bullion weights or jewellery</p>
+          </div>
+
+          <div class="field">
+            <label for="calcMetal">Select Metal &amp; Karat</label>
+            <select id="calcMetal">
+              <option value="gold22k" selected>22K Gold (916 BIS Hallmarked)</option>
+              <option value="gold24k">24K Pure Gold (999.9 Bullion)</option>
+              <option value="gold18k">18K Diamond Mounting Gold (750)</option>
+              <option value="silver999">999 Fine Silver</option>
+              <option value="silver925">925 Sterling Silver</option>
+            </select>
+          </div>
+
+          <div class="two">
+            <div class="field">
+              <label for="calcQty">Quantity</label>
+              <input id="calcQty" type="number" min="0.1" step="0.1" value="10">
+            </div>
+            <div class="field">
+              <label for="calcUnit">Unit</label>
+              <select id="calcUnit">
+                <option value="grams" selected>Grams (g)</option>
+                <option value="pavan">Pavan / Sovereign (8g)</option>
+                <option value="tola">Tola (11.66g)</option>
+                <option value="kg">Kilogram (kg)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted);font-weight:500;">Quick Presets</label>
+            <div class="calc-presets">
+              <button class="calc-preset-chip" data-calc-preset="1">1g</button>
+              <button class="calc-preset-chip" data-calc-preset="4">4g</button>
+              <button class="calc-preset-chip" data-calc-preset="8">8g (1 Pavan)</button>
+              <button class="calc-preset-chip active" data-calc-preset="10">10g (1 Tola)</button>
+              <button class="calc-preset-chip" data-calc-preset="20">20g</button>
+              <button class="calc-preset-chip" data-calc-preset="50">50g</button>
+              <button class="calc-preset-chip" data-calc-preset="100">100g</button>
+              <button class="calc-preset-chip" data-calc-preset="1000">1kg</button>
+            </div>
+          </div>
+
+          <label class="calc-checkbox-label">
+            <input type="checkbox" id="calcGst" checked>
+            <span>Include Applicable 3% GST</span>
+          </label>
+
+          <div class="calc-result-box">
+            <div class="calc-result-row">
+              <span>Applied Rate:</span>
+              <strong id="calcRatePerGram">₹6,855/g</strong>
+            </div>
+            <div class="calc-result-row">
+              <span>Base Metal Amount:</span>
+              <strong id="calcBaseAmount">₹68,550</strong>
+            </div>
+            <div class="calc-result-row">
+              <span>Estimated GST (3%):</span>
+              <strong id="calcGstAmount">₹2,057</strong>
+            </div>
+            <div class="calc-result-row calc-result-row--total">
+              <span>Estimated Total:</span>
+              <span class="calc-result-total-val" id="calcTotalVal">₹70,607</span>
+            </div>
+          </div>
+
+          <button class="btn btn--solid" id="calcWaBtn">
+            Lock This Rate on WhatsApp 💬
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ CATEGORIES ============ -->
   <section class="section" id="categories">
@@ -305,6 +566,7 @@
         <div>
           <h5>Explore</h5>
           <ul>
+            <li><a href="#rates">Live Bullion Rates</a></li>
             <li><a href="#categories">Collections</a></li>
             <li><a href="#catalogue">Catalogue</a></li>
             <li><a href="#trust">Why Sri Sai</a></li>
