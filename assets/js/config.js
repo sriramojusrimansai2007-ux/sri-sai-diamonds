@@ -21,9 +21,9 @@ export const CONFIG = {
 
   // Live Bullion Rates (CapsGold Hyderabad Benchmark · 3% GST Included)
   rates: {
-    gold24k: '₹15,965 /g',
-    gold22k: '₹14,635 /g',
-    silver999: '₹267.80 /g',
+    gold24k: '₹1,59,650 /10g',
+    gold22k: '₹1,46,350 /10g',
+    silver999: '₹2,67,800 /kg',
     note: "CapsGold Benchmark (3% GST Included · Live 1-Second Updates)"
   }
 };

@@ -203,25 +203,28 @@ function updateDOM(isTick = false) {
   const goldDirection = g24 > liveRates.prev_gold24k_1g ? 'up' : (g24 < liveRates.prev_gold24k_1g ? 'down' : 'neutral');
   const silverDirection = s999 > liveRates.prev_silver999_1g ? 'up' : (s999 < liveRates.prev_silver999_1g ? 'down' : 'neutral');
 
-  // 1. Top Rate Ticker in Navigation
-  setTextSafe('#rateGold24k', `₹${formatInr(g24)}/g`, goldDirection);
-  setTextSafe('#rateGold22k', `₹${formatInr(g22)}/g`, goldDirection);
-  setTextSafe('#rateSilver999', `₹${s999.toFixed(2)}/g`, silverDirection);
+  // 1. Top Rate Ticker in Navigation (Gold per 10g, Silver per kg)
+  setTextSafe('#rateGold24k', `₹${formatInr(Math.round(g24 * 10))}/10g`, goldDirection);
+  setTextSafe('#rateGold22k', `₹${formatInr(Math.round(g22 * 10))}/10g`, goldDirection);
+  setTextSafe('#rateSilver999', `₹${formatInr(Math.round(s999 * 1000))}/kg`, silverDirection);
 
-  // 2. Core Dashboard Cards (Professional Font)
-  setTextSafe('#cardRate24k_1g', `₹${formatInr(g24)}`, goldDirection);
-  setTextSafe('#cardRate24k_10g', `₹${formatInr(Math.round(g24 * 10))}`);
-  setTextSafe('#cardRate22k_1g', `₹${formatInr(g22)}`, goldDirection);
+  // 2. Core Dashboard Cards (Gold per 10g Main, Silver per 1kg Main)
+  setTextSafe('#cardRate24k_10g_main', `₹${formatInr(Math.round(g24 * 10))}`, goldDirection);
+  setTextSafe('#cardRate24k_1g', `₹${formatInr(g24)}`);
+  setTextSafe('#cardRate22k_10g_main', `₹${formatInr(Math.round(g22 * 10))}`, goldDirection);
   setTextSafe('#cardRate22k_8g', `₹${formatInr(Math.round(g22 * 8))}`);
-  setTextSafe('#cardRate18k_1g', `₹${formatInr(g18)}`, goldDirection);
-  setTextSafe('#cardRate18k_10g', `₹${formatInr(Math.round(g18 * 10))}`);
-  setTextSafe('#cardRateSilver_1g', `₹${s999.toFixed(2)}`, silverDirection);
-  setTextSafe('#cardRateSilver_1kg', `₹${formatInr(Math.round(s999 * 1000))}`);
+  setTextSafe('#cardRate22k_1g', `₹${formatInr(g22)}`);
+  setTextSafe('#cardRate18k_10g_main', `₹${formatInr(Math.round(g18 * 10))}`, goldDirection);
+  setTextSafe('#cardRate18k_1g', `₹${formatInr(g18)}`);
 
-  // Trend Badges (▲ / ▼)
-  updateTrendBadge('#trendGold24k', liveRates.dayChangeGold, liveRates.dayChangePercentGold);
-  updateTrendBadge('#trendGold22k', liveRates.dayChangeGold * (22 / 24), liveRates.dayChangePercentGold);
-  updateTrendBadge('#trendSilver999', liveRates.dayChangeSilver, liveRates.dayChangePercentSilver);
+  setTextSafe('#cardRateSilver_1kg_main', `₹${formatInr(Math.round(s999 * 1000))}`, silverDirection);
+  setTextSafe('#cardRateSilver_10g', `₹${(s999 * 10).toFixed(2)}`);
+  setTextSafe('#cardRateSilver_1g', `₹${s999.toFixed(2)}`);
+
+  // Trend Badges (▲ / ▼ per standard 10g/1kg units)
+  updateTrendBadge('#trendGold24k', liveRates.dayChangeGold * 10, liveRates.dayChangePercentGold);
+  updateTrendBadge('#trendGold22k', (liveRates.dayChangeGold * (22 / 24)) * 10, liveRates.dayChangePercentGold);
+  updateTrendBadge('#trendSilver999', liveRates.dayChangeSilver * 1000, liveRates.dayChangePercentSilver);
 
   // 3. Multi-Weight Rate Table
   setTextSafe('#tbl24k_1g', `₹${formatInr(g24)}`);
