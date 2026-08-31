@@ -1,0 +1,128 @@
+import { PRODUCTS, CATEGORIES, IMG, CAT_LABELS } from '../data/products.js';
+import { $, $$, el } from './dom.js';
+
+export let activeFilter = 'all';
+let currentHandlers = [];
+
+export function initCatalogue(onAdd, onZoom) {
+  currentHandlers = [onAdd, onZoom];
+  renderCategories(onAdd, onZoom);
+  renderFilters();
+  renderGrid(onAdd, onZoom);
+
+  // Deep-linking links (e.g. from footer or hero)
+  document.querySelectorAll('[data-filter-link]').forEach(a =>
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetCat = a.dataset.filterLink;
+      setFilter(targetCat, onAdd, onZoom);
+      const catSection = $('#catalogue');
+      if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+    }));
+}
+
+function renderCategories(onAdd, onZoom) {
+  const box = $('#catGrid');
+  if (!box) return;
+  box.innerHTML = '';
+
+  CATEGORIES.forEach(cat => {
+    const card = el('article', 'cat-card reveal in');
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `View ${cat.name} catalogue`);
+
+    const icon = el('div', 'cat-card__icon', cat.icon);
+    const title = el('h3', '', cat.name);
+    const desc = el('p', '', cat.desc);
+    const cta = el('span', 'cat-card__cta', 'View Range →');
+
+    card.append(icon, title, desc, cta);
+
+    const handleClick = () => {
+      setFilter(cat.id, onAdd, onZoom);
+      const catSection = $('#catalogue');
+      if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    card.addEventListener('click', handleClick);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick();
+      }
+    });
+
+    box.appendChild(card);
+  });
+}
+
+function renderFilters() {
+  const box = $('#filters');
+  if (!box) return;
+  box.innerHTML = '';
+
+  ['all', ...Object.keys(CAT_LABELS)].forEach(key => {
+    const b = el('button', 'chip' + (key === activeFilter ? ' active' : ''),
+      key === 'all' ? 'All' : CAT_LABELS[key]);
+    b.dataset.cat = key;
+    b.addEventListener('click', () => setFilter(key, ...currentHandlers));
+    box.appendChild(b);
+  });
+}
+
+export function setFilter(cat, onAdd, onZoom) {
+  activeFilter = cat;
+  $$('.chip').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+  renderGrid(onAdd ?? currentHandlers[0], onZoom ?? currentHandlers[1]);
+}
+
+function renderGrid(onAdd, onZoom) {
+  currentHandlers = [onAdd, onZoom];
+  const grid = $('#productGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  const items = activeFilter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeFilter);
+
+  if (!items.length) {
+    const empty = el('div', 'grid-empty', 'No items found in this category.');
+    grid.appendChild(empty);
+    return;
+  }
+
+  items.forEach(p => {
+    const card = el('article', 'piece reveal in');
+    const imgWrap = el('div', 'piece__img');
+    const img = el('img');
+    img.src = IMG(p.name.replace(/\W+/g, '').slice(0, 10) + p.id);
+    img.alt = p.name;
+    img.loading = 'lazy';
+    img.addEventListener('click', () => onZoom && onZoom(img.src));
+    imgWrap.appendChild(img);
+
+    if (p.tag) {
+      imgWrap.appendChild(el('span', 'piece__tag', p.tag));
+    }
+    card.appendChild(imgWrap);
+
+    const row = el('div', 'piece__row');
+    const left = el('div');
+    left.appendChild(el('div', 'piece__name', p.name));
+    left.appendChild(el('div', 'piece__metal', CAT_LABELS[p.cat] || p.cat));
+    row.appendChild(left);
+    row.appendChild(el('span', 'piece__price', 'Price on request'));
+    card.appendChild(row);
+
+    if (p.desc) {
+      card.appendChild(el('p', 'piece__desc', p.desc));
+    }
+
+    const add = el('button', 'piece__add', 'Add to Quote List +');
+    add.setAttribute('aria-label', `Add ${p.name} to quote list`);
+    add.addEventListener('click', () => onAdd && onAdd(p));
+    card.appendChild(add);
+
+    grid.appendChild(card);
+  });
+}

@@ -1,0 +1,101 @@
+/* ---------- Nav ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px; transition: all .4s ease; border-bottom: 1px solid transparent;
+}
+.nav.scrolled { background: rgba(247,243,235,.95); backdrop-filter: blur(10px); border-color: var(--hairline); padding: 12px 48px; }
+.nav__logo { font-family: var(--serif); font-size: 20px; font-weight: 500; letter-spacing: .04em; }
+.nav__logo em { color: var(--gold); font-style: italic; }
+.nav__links { display: flex; gap: 34px; list-style: none; }
+.nav__links a { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; position: relative; padding: 4px 0; }
+.nav__links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--gold); transition: width .3s; }
+.nav__links a:hover::after { width: 100%; }
+.nav__quote { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.nav__count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 20px; height: 20px; padding: 0 4px;
+  border: 1px solid var(--gold); border-radius: 50%;
+  font-size: 10px; color: var(--gold);
+}
+
+/* Mobile burger */
+.burger { display: none; flex-direction: column; gap: 6px; }
+.burger span { width: 24px; height: 1.5px; background: var(--ink); transition: .3s; }
+
+@media (max-width: 900px) {
+  .nav { padding: 16px 22px; }
+  .nav__links {
+    display: none; position: fixed; top: 58px; left: 0; right: 0;
+    background: var(--ivory); flex-direction: column; padding: 30px 22px;
+    gap: 18px; border-bottom: 1px solid var(--hairline);
+  }
+  .nav__links.open { display: flex; }
+  .burger { display: flex; }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block; padding: 15px 36px; text-align: center;
+  border: 1px solid var(--ink); font-size: 11px; letter-spacing: .26em;
+  text-transform: uppercase; transition: all .35s ease; background: transparent; color: var(--ink);
+}
+.btn:hover { background: var(--ink); color: var(--ivory); }
+.btn--solid { background: var(--ink); color: var(--ivory); }
+.btn--solid:hover { background: var(--gold); border-color: var(--gold); }
+.btn--small { padding: 11px 24px; font-size: 10px; }
+
+/* ---------- Product card ---------- */
+.piece { cursor: default; }
+.piece__img { position: relative; overflow: hidden; background: var(--ivory-2); }
+.piece__img img { aspect-ratio: 3/4; width: 100%; object-fit: cover; transition: transform .8s ease; cursor: zoom-in; }
+.piece:hover .piece__img img { transform: scale(1.05); }
+.piece__tag { position: absolute; top: 14px; left: 14px; background: var(--ivory); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; padding: 6px 12px; }
+.piece__row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-top: 16px; }
+.piece__name { font-family: var(--serif); font-size: 21px; font-weight: 500; }
+.piece__metal { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin-top: 3px; }
+.piece__price { font-size: 12px; letter-spacing: .1em; color: var(--gold); white-space: nowrap; padding-top: 5px; }
+.piece__desc { font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin-top: 8px; }
+.piece__add { margin-top: 14px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 4px; transition: color .3s, border-color .3s; }
+.piece__add:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ---------- Drawer (quote list) ---------- */
+.overlay { position: fixed; inset: 0; background: rgba(27,24,18,.5); opacity: 0; pointer-events: none; transition: .4s; z-index: 190; }
+.overlay.open { opacity: 1; pointer-events: auto; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%);
+  background: var(--ivory); z-index: 200; transform: translateX(100%);
+  transition: transform .45s var(--ease); display: flex; flex-direction: column;
+  border-left: 1px solid var(--hairline);
+}
+.drawer.open { transform: none; }
+.drawer__head { display: flex; justify-content: space-between; align-items: center; padding: 26px 30px; border-bottom: 1px solid var(--hairline); }
+.drawer__head h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; }
+.drawer__close { font-size: 24px; line-height: 1; }
+.drawer__body { flex: 1; overflow-y: auto; padding: 20px 30px; }
+.drawer__foot { padding: 24px 30px; border-top: 1px solid var(--hairline); }
+.drawer__note { font-size: 12px; color: var(--ink-soft); margin-bottom: 14px; }
+.drawer__foot .btn { width: 100%; }
+.quote-empty { text-align: center; padding: 56px 0; color: var(--ink-soft); }
+.quote-empty span { font-family: var(--serif); font-size: 22px; font-style: italic; display: block; margin-bottom: 8px; color: var(--ink); }
+.quote-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--hairline); align-items: center; }
+.quote-item img { width: 64px; height: 80px; object-fit: cover; }
+.quote-item b { font-family: var(--serif); font-size: 16px; font-weight: 500; display: block; }
+.quote-item i { font-style: normal; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.quote-item__rm { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); margin-top: 6px; display: inline-block; }
+
+/* ---------- Lightbox ---------- */
+.lightbox { position: fixed; inset: 0; background: rgba(27,24,18,.92); z-index: 250; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: .35s; }
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox img { max-width: 86vw; max-height: 84vh; object-fit: contain; }
+.lightbox__x { position: absolute; top: 24px; right: 34px; color: var(--ivory); font-size: 30px; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 90px);
+  background: var(--ink); color: var(--ivory); padding: 14px 28px;
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  z-index: 300; transition: transform .45s var(--ease); border-left: 2px solid var(--gold);
+  max-width: 90vw; text-align: center;
+}
+.toast.show { transform: translate(-50%, 0); }

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Sri Sai Diamonds and Tools | Gold, Silver, Diamonds, Gemstones & Jewellery Tools</title>
+  <meta name="description" content="Sri Sai Diamonds and Tools — trusted dealers in gold, silver, diamonds, precious & semi-precious stones, and professional jewellery-making & diamond tools.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; frame-src https://maps.google.com https://www.google.com; connect-src 'self';">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sri Sai Diamonds and Tools">
+  <meta property="og:description" content="Gold · Silver · Diamonds · Precious Stones · Jewellery-Making Tools">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a class="nav__logo" href="#top">Sri Sai <em>Diamonds</em> &amp; Tools</a>
+    <button class="burger" id="burgerBtn" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#categories">What We Offer</a></li>
+      <li><a href="#catalogue">Catalogue</a></li>
+      <li><a href="#trust">Why Us</a></li>
+      <li><a href="#visit">Visit Us</a></li>
+      <li><a href="#enquiry">Enquiry</a></li>
+    </ul>
+    <button class="nav__quote" id="quoteBtn" aria-label="Open quote list">
+      Quote List <span class="nav__count" id="quoteCount">0</span>
+    </button>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <div class="hero__text">
+      <span class="eyebrow reveal">Gold · Silver · Diamonds · Stones · Tools</span>
+      <h1 class="hero__title reveal">Everything a jeweller needs,<br>under one <em>trusted</em> roof.</h1>
+      <p class="hero__sub reveal">From precious metals and certified stones to professional jewellery-making and diamond tools — serving jewellers, artisans and buyers with honest dealing.</p>
+      <div class="reveal hero__cta">
+        <a class="btn btn--solid" href="#catalogue">Browse Catalogue</a>
+        <a class="btn" href="#visit">Find Our Shop</a>
+      </div>
+      <div class="hero__index reveal">
+        <div><strong>5+</strong><span>Categories</span></div>
+        <div><strong>100%</strong><span>Checked quality</span></div>
+        <div><strong>B2B &amp; B2C</strong><span>Jewellers &amp; buyers</span></div>
+      </div>
+    </div>
+    <div class="hero__media">
+      <img src="https://picsum.photos/seed/srisaihero/1000/1400.jpg" alt="Fine gold jewellery" fetchpriority="high">
+      <span class="hero__scroll">Scroll</span>
+    </div>
+  </header>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true"><div class="marquee__track" id="mq"></div></div>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section class="section" id="categories">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Our Range</span>
+          <h2 class="sec-title">What we <em>offer</em></h2>
+        </div>
+      </div>
+      <div class="cat-grid" id="catGrid"><!-- rendered by JS --></div>
+    </div>
+  </section>
+
+  <!-- ============ CATALOGUE ============ -->
+  <section class="section section--alt" id="catalogue">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Live Selection</span>
+          <h2 class="sec-title">Product <em>catalogue</em></h2>
+        </div>
+        <div class="filters" id="filters" role="tablist"><!-- rendered by JS --></div>
+      </div>
+      <p class="price-note reveal">Prices for gold, silver, diamonds and stones fluctuate with the market — <strong>contact us for today's price</strong> on any item.</p>
+      <div class="grid" id="productGrid"><!-- rendered by JS --></div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST ============ -->
+  <section class="section section--dark" id="trust">
+    <div class="wrap">
+      <span class="eyebrow reveal">Why Customers Choose Us</span>
+      <h2 class="sec-title reveal">Honest weight.<br>Genuine stones. <em>Real tools.</em></h2>
+      <div class="trust-grid">
+        <div class="trust-card reveal">
+          <h3>Verified Purity</h3>
+          <p>Gold and silver sold with proper purity assurance and transparent weighing on calibrated scales, in front of you.</p>
+        </div>
+        <div class="trust-card reveal">
+          <h3>Genuine Stones</h3>
+          <p>Diamonds and precious / semi-precious stones checked and described honestly — no inflation, no misrepresentation.</p>
+        </div>
+        <div class="trust-card reveal">
+          <h3>Professional Tools</h3>
+          <p>Jewellery-making and diamond tools for workshops and artisans — the working gear professionals actually rely on.</p>
+        </div>
+        <div class="trust-card reveal">
+          <h3>One-Stop Supply</h3>
+          <p>Metals, stones and tools together — set up or restock an entire jewellery workflow from a single trusted supplier.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISIT / MAP ============ -->
+  <section class="section" id="visit">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">Find Us</span>
+          <h2 class="sec-title">Visit our <em>shop</em></h2>
+        </div>
+      </div>
+      <div class="visit reveal">
+        <div class="visit__map">
+          <iframe
+            id="mapFrame"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.7463939114546!2d79.4835845749773!3d19.074884782129505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a32b10027eef6cf%3A0x2da604c541d6d7c9!2sSri%20Sai%20Diamonds%20and%20Tools!5e0!3m2!1sen!2sin!4v1788193308325!5m2!1sen!2sin"
+            title="Sri Sai Diamonds and Tools on Google Maps"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="visit__info">
+          <h3>Sri Sai Diamonds and Tools</h3>
+          <ul class="visit__meta-list">
+            <li class="visit__meta-item"><strong>Address:</strong> <span id="visitAddress">Nelco line, Road no 3, Bazar area, Bellampalli, Telangana 504251</span></li>
+            <li class="visit__meta-item"><strong>Hours:</strong> <span id="visitHours">Mon – Sat: 10:00 AM – 8:30 PM | Sun: 10:00 AM – 2:00 PM</span></li>
+            <li class="visit__meta-item"><strong>Email:</strong> <span id="visitEmail">damodargold2@gmail.com</span></li>
+          </ul>
+          <div class="visit__actions">
+            <a class="btn btn--solid" id="directionsBtn" href="https://maps.app.goo.gl/HBfFWG65g8LXPhgF8" target="_blank" rel="noopener noreferrer">Get Directions on Maps ↗</a>
+            <a class="btn" id="callBtn" href="tel:+919440207558">Call +91 94402 07558</a>
+            <a class="btn" id="whatsappBtn" href="https://wa.me/919440207558" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+          </div>
+          <p class="visit__note">Dealers, jewellers, goldsmiths and retail buyers are welcome. Feel free to call or WhatsApp ahead for customized requirements, today's bullion rates, or specific tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENQUIRY ============ -->
+  <section class="section section--alt" id="enquiry" style="padding-top:0">
+    <div class="wrap">
+      <div class="enquiry reveal">
+        <div class="enquiry__info">
+          <span class="eyebrow">Get In Touch</span>
+          <h2 class="sec-title">Request a <em>callback</em></h2>
+          <p>Tell us what you're looking for — a particular stone, bulk metal, or a specific tool — and we'll get back to you with availability and today's price.</p>
+          <ul class="enquiry__points">
+            <li>✓ Market-rate pricing, quoted fresh</li>
+            <li>✓ Bulk &amp; jeweller (B2B) enquiries welcome</li>
+            <li>✓ Tool availability checked before we call</li>
+          </ul>
+        </div>
+        <form id="enquiryForm" novalidate>
+          <div class="two">
+            <div class="field">
+              <label for="fName">Your Name *</label>
+              <input id="fName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="e.g. Ramesh Kumar">
+              <small>Please enter your name.</small>
+            </div>
+            <div class="field">
+              <label for="fPhone">Phone Number *</label>
+              <input id="fPhone" name="phone" type="tel" maxlength="15" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile number">
+              <small>Please enter a valid 10-digit phone number.</small>
+            </div>
+          </div>
+          <div class="two">
+            <div class="field">
+              <label for="fInterest">Interested In *</label>
+              <select id="fInterest" name="interest">
+                <option value="">Select…</option>
+                <option>Gold</option>
+                <option>Silver</option>
+                <option>Diamonds</option>
+                <option>Precious / semi-precious stones</option>
+                <option>Jewellery-making / diamond tools</option>
+                <option>Other / general enquiry</option>
+              </select>
+              <small>Please choose a category.</small>
+            </div>
+            <div class="field">
+              <label for="fQty">Approx. Quantity (optional)</label>
+              <input id="fQty" name="qty" type="text" maxlength="40" placeholder="e.g. 10g, 2 pieces, bulk">
+            </div>
+          </div>
+          <div class="field">
+            <label for="fMsg">Message (optional)</label>
+            <textarea id="fMsg" name="msg" rows="3" maxlength="500" placeholder="Specifications, carat, size, tool model…"></textarea>
+          </div>
+          <p class="form-privacy">Your details are used only to respond to this enquiry.</p>
+          <button class="btn btn--solid" type="submit">Send Enquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-logo">Sri Sai <em>Diamonds</em> &amp; Tools</div>
+          <p>Dealers in gold, silver, diamonds, precious &amp; semi-precious stones, and professional jewellery-making and diamond tools.</p>
+        </div>
+        <div><h5>Explore</h5><ul>
+          <li><a href="#categories">What We Offer</a></li>
+          <li><a href="#catalogue">Catalogue</a></li>
+          <li><a href="#trust">Why Us</a></li>
+          <li><a href="#visit">Visit Us</a></li>
+          <li><a href="#enquiry">Enquiry</a></li>
+        </ul></div>
+        <div><h5>Categories</h5><ul>
+          <li><a href="#catalogue" data-filter-link="gold">Gold Bullion &amp; Jewellery</a></li>
+          <li><a href="#catalogue" data-filter-link="silver">Silver &amp; Pooja Articles</a></li>
+          <li><a href="#catalogue" data-filter-link="diamonds">Certified Diamonds</a></li>
+          <li><a href="#catalogue" data-filter-link="stones">Gemstones</a></li>
+          <li><a href="#catalogue" data-filter-link="tools">Tools &amp; Equipment</a></li>
+        </ul></div>
+        <div><h5>Contact</h5><ul>
+          <li><a id="footMaps" href="https://maps.app.goo.gl/HBfFWG65g8LXPhgF8" target="_blank" rel="noopener noreferrer">Google Maps ↗</a></li>
+          <li><a id="footCall" href="tel:+919440207558">Call: +91 94402 07558</a></li>
+          <li><a id="footWa" href="https://wa.me/919440207558" target="_blank" rel="noopener noreferrer">WhatsApp: +91 94402 07558</a></li>
+          <li><a id="footEmail" href="mailto:damodargold2@gmail.com">damodargold2@gmail.com</a></li>
+        </ul></div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Sri Sai Diamonds and Tools</span>
+        <span>All prices on request · Market rates apply</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ QUOTE DRAWER ============ -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-label="Quote list">
+    <div class="drawer__head">
+      <h3>Your Quote List</h3>
+      <button class="drawer__close" id="closeDrawer" aria-label="Close">×</button>
+    </div>
+    <div class="drawer__body" id="quoteBody"></div>
+    <div class="drawer__foot">
+      <p class="drawer__note">Prices depend on today's market rate. Send this list and we'll quote you.</p>
+      <button class="btn btn--solid" id="sendQuoteBtn">Send List on WhatsApp</button>
+    </div>
+  </aside>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__x" id="lbClose" aria-label="Close image">×</button>
+    <img id="lbImg" src="" alt="Enlarged product view">
+  </div>
+
+  <div class="toast" id="toastEl" role="status" aria-live="polite"></div>
+
+  <!-- App (ES modules — must be served over http, see README) -->
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

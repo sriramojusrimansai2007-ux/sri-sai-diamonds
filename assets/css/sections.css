@@ -1,0 +1,4 @@
+/* Section-specific fine-tuning lives here; keep it minimal */
+#categories .sec-head { margin-bottom: 40px; }
+#trust { padding-top: 0; }
+#catalogue .sec-head { margin-bottom: 18px; }

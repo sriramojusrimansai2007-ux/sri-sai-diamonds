@@ -1,0 +1,25 @@
+:root {
+  /* Brand palette */
+  --ivory:      #F7F3EB;
+  --ivory-2:    #EFE8DA;
+  --ink:        #1B1812;
+  --ink-soft:   #4C463B;
+  --gold:       #A98B4F;
+  --gold-soft:  #C9B585;
+  --danger:     #B04A3A;
+  --hairline:   rgba(27, 24, 18, .16);
+
+  /* Typography */
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Jost', 'Segoe UI', sans-serif;
+
+  /* Spacing scale */
+  --sp-1: .5rem;  --sp-2: 1rem;   --sp-3: 1.5rem;
+  --sp-4: 2rem;   --sp-5: 3rem;   --sp-6: 4.5rem;
+
+  /* Misc */
+  --radius: 2px;
+  --shadow: 0 18px 50px rgba(27,24,18,.10);
+  --ease:   cubic-bezier(.22, 1, .36, 1);
+  --wrap:   1280px;
+}
