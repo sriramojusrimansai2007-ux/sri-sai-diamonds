@@ -42,7 +42,7 @@ function render() {
     const p = PRODUCTS.find(x => x.id === id);
     const row = document.createElement('div'); row.className = 'quote-item';
     const img = document.createElement('img');
-    img.src = `https://picsum.photos/seed/${p.name.replace(/\W+/g, '').slice(0, 10) + p.id}/300/380.jpg`;
+    img.src = p.image || `https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=300&q=80`;
     img.alt = p.name;
     const mid = document.createElement('div');
     const b = document.createElement('b'); b.textContent = p.name;

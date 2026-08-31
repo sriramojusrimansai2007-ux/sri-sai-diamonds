@@ -92,6 +92,16 @@ function wireContact() {
     setText('#footEmail', CONFIG.email);
     setText('#visitEmail', CONFIG.email);
   }
+
+  // Live Indicative Rates Bar
+  if (CONFIG.rates) {
+    if (CONFIG.rates.gold24k) setText('#rateGold24k', CONFIG.rates.gold24k);
+    if (CONFIG.rates.gold22k) setText('#rateGold22k', CONFIG.rates.gold22k);
+    if (CONFIG.rates.silver999) setText('#rateSilver999', CONFIG.rates.silver999);
+  }
+  if (wa) {
+    setHref('#rateWaLink', `https://wa.me/${wa}?text=${encodeURIComponent("Namaste Sri Sai Diamonds, please share today's live gold and silver rates.")}`);
+  }
 }
 
 /* ---- Bootstrap Application ---- */
