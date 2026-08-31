@@ -8,24 +8,24 @@ import { CONFIG } from '../config.js';
 import { $, $$, el } from './dom.js';
 import { toast } from './ui.js';
 
-// Base calibrated market rates (3% GST Included Directly)
+// CapsGold Hyderabad Bullion Benchmark (3% GST Included Directly)
 const GST_FACTOR = 1.03; // 3% Indian Bullion GST
 
 const BASE_EX_GST = {
-  gold24k: 7480.00,
-  gold22k: 6851.68,
-  gold18k: 5610.00,
-  silver999: 91.50,
-  silver925: 84.60
+  gold24k: 15500.00,
+  gold22k: 14200.00,
+  gold18k: 11625.00,
+  silver999: 260.00,
+  silver925: 240.50
 };
 
 // Rates with 3% GST included directly
 const BASE_RATES = {
-  gold24k: Math.round(BASE_EX_GST.gold24k * GST_FACTOR * 100) / 100, // ₹7,704.40
-  gold22k: Math.round(BASE_EX_GST.gold22k * GST_FACTOR * 100) / 100, // ₹7,057.23
-  gold18k: Math.round(BASE_EX_GST.gold18k * GST_FACTOR * 100) / 100, // ₹5,778.30
-  silver999: Math.round(BASE_EX_GST.silver999 * GST_FACTOR * 100) / 100, // ₹94.25
-  silver925: Math.round(BASE_EX_GST.silver925 * GST_FACTOR * 100) / 100  // ₹87.14
+  gold24k: Math.round(BASE_EX_GST.gold24k * GST_FACTOR * 100) / 100, // ₹15,965.00
+  gold22k: Math.round(BASE_EX_GST.gold22k * GST_FACTOR * 100) / 100, // ₹14,626.00
+  gold18k: Math.round(BASE_EX_GST.gold18k * GST_FACTOR * 100) / 100, // ₹11,973.75
+  silver999: Math.round(BASE_EX_GST.silver999 * GST_FACTOR * 100) / 100, // ₹267.80
+  silver925: Math.round(BASE_EX_GST.silver925 * GST_FACTOR * 100) / 100  // ₹247.70
 };
 
 export let liveRates = {
@@ -36,10 +36,10 @@ export let liveRates = {
   silver925_1g: BASE_RATES.silver925,
   prev_gold24k_1g: BASE_RATES.gold24k,
   prev_silver999_1g: BASE_RATES.silver999,
-  dayChangeGold: +18.50,
-  dayChangePercentGold: +0.24,
-  dayChangeSilver: +0.65,
-  dayChangePercentSilver: +0.69,
+  dayChangeGold: +45.00,
+  dayChangePercentGold: +0.28,
+  dayChangeSilver: +1.60,
+  dayChangePercentSilver: +0.60,
   lastUpdated: new Date(),
   source: 'Live Exchange Feed'
 };
@@ -91,12 +91,12 @@ function startSecondBySecondTicks() {
     // Generate natural stock market micro-tick (every 1 second)
     // 70% of ticks have micro-fluctuation, 30% stay flat
     if (Math.random() > 0.3) {
-      // Gold micro-delta between -₹0.40 and +₹0.45
-      const goldDelta = (Math.random() * 0.85 - 0.40);
+      // Gold micro-delta between -₹0.80 and +₹0.90
+      const goldDelta = (Math.random() * 1.70 - 0.80);
       const newGold24k = Math.max(BASE_RATES.gold24k * 0.97, Math.min(BASE_RATES.gold24k * 1.03, liveRates.gold24k_1g + goldDelta));
 
-      // Silver micro-delta between -₹0.04 and +₹0.05
-      const silverDelta = (Math.random() * 0.09 - 0.04);
+      // Silver micro-delta between -₹0.10 and +₹0.12
+      const silverDelta = (Math.random() * 0.22 - 0.10);
       const newSilver999 = Math.max(BASE_RATES.silver999 * 0.97, Math.min(BASE_RATES.silver999 * 1.03, liveRates.silver999_1g + silverDelta));
 
       liveRates.prev_gold24k_1g = liveRates.gold24k_1g;
@@ -132,28 +132,28 @@ export async function fetchLiveSpotFeed(manualTrigger = false) {
       fetch('https://open.er-api.com/v6/latest/USD')
     ]);
 
-    let fxRate = 88.50;
+    let fxRate = 95.58;
     if (fxRes.status === 'fulfilled' && fxRes.value.ok) {
       const fxData = await fxRes.value.json();
       if (fxData && fxData.rates && fxData.rates.INR) fxRate = fxData.rates.INR;
     }
 
-    let goldPriceOz = 2650;
+    let goldPriceOz = 4431.20;
     if (goldRes.status === 'fulfilled' && goldRes.value.ok) {
       const data = await goldRes.value.json();
       if (data && data.price) goldPriceOz = data.price;
     }
 
-    let silverPriceOz = 31.80;
+    let silverPriceOz = 66.34;
     if (silverRes.status === 'fulfilled' && silverRes.value.ok) {
       const data = await silverRes.value.json();
       if (data && data.price) silverPriceOz = data.price;
     }
 
-    // Scale movements relative to spot baseline with 3% GST included
+    // Scale movements relative to CapsGold benchmark with 3% GST included
     if (goldPriceOz > 0) {
-      const ratio = Math.max(0.97, Math.min(1.03, goldPriceOz / 2650));
-      BASE_EX_GST.gold24k = Math.round(7480 * ratio);
+      const ratio = Math.max(0.97, Math.min(1.03, goldPriceOz / 4431.20));
+      BASE_EX_GST.gold24k = Math.round(15500 * ratio);
       BASE_EX_GST.gold22k = Math.round(BASE_EX_GST.gold24k * 0.916 * 100) / 100;
       BASE_EX_GST.gold18k = Math.round(BASE_EX_GST.gold24k * 0.750 * 100) / 100;
 
@@ -163,8 +163,8 @@ export async function fetchLiveSpotFeed(manualTrigger = false) {
     }
 
     if (silverPriceOz > 0) {
-      const ratio = Math.max(0.97, Math.min(1.03, silverPriceOz / 31.80));
-      BASE_EX_GST.silver999 = Math.round(91.50 * ratio * 100) / 100;
+      const ratio = Math.max(0.97, Math.min(1.03, silverPriceOz / 66.34));
+      BASE_EX_GST.silver999 = Math.round(260 * ratio * 100) / 100;
       BASE_EX_GST.silver925 = Math.round(BASE_EX_GST.silver999 * 0.925 * 100) / 100;
 
       BASE_RATES.silver999 = Math.round(BASE_EX_GST.silver999 * GST_FACTOR * 100) / 100;
