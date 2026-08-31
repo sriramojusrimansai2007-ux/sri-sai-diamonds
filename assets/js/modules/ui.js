@@ -19,8 +19,10 @@ export function initReveal() {
 }
 
 export function initMarquee(words) {
-  const half = words.map(w => `<span>${w}</span><i>◆</i>`).join('');
-  $('#mq').innerHTML = half + half;
+  const mq = $('#mq');
+  if (!mq) return;
+  const chunk = words.map(w => `<span>${w}</span><i>◆</i>`).join('');
+  mq.innerHTML = chunk + chunk + chunk + chunk;
 }
 
 export function initYear() {

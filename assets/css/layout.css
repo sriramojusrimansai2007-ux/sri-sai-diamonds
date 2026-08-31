@@ -232,6 +232,44 @@
   line-height: 1.35;
 }
 
+/* ---------- Marquee Ticker ---------- */
+.marquee {
+  background: #0E0C09;
+  border-top: 1px solid rgba(197, 160, 89, 0.35);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.35);
+  padding: 13px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+}
+.marquee__track {
+  display: inline-flex;
+  gap: 36px;
+  animation: marquee-scroll 25s linear infinite;
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 242, 0.92);
+  align-items: center;
+  will-change: transform;
+}
+.marquee__track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.marquee__track i {
+  color: var(--gold);
+  font-style: normal;
+  font-size: 7px;
+  margin-left: 10px;
+}
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ---------- Live Bullion Rates Section ---------- */
 .rates-sec {
   background: var(--ivory);
