@@ -141,7 +141,7 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div>
-          <span class="eyebrow">Telangana Bullion Market Benchmark</span>
+          <span class="eyebrow">Real-Time Spot Bullion Market</span>
           <h2 class="sec-title">Live Gold &amp; Silver <em>Rates</em></h2>
         </div>
       </div>
@@ -150,16 +150,16 @@
       <div class="rates-meta-bar reveal">
         <div class="rates-meta-left">
           <div class="market-status market-status--open" id="marketStatusBadge">
-            <span class="market-status__dot"></span> Bullion Market Open
+            <span class="market-status__dot"></span> Live Market Session
           </div>
           <div class="rates-source-tag">
-            <span>CapsGold / IBJA</span> Aligned Real-Time Feed
+            <span>● Streaming Real-Time Feed</span> (Updated every second)
           </div>
         </div>
         <div class="rates-meta-right">
-          <div class="rates-timestamp">Updated: <strong id="ratesTimestamp">Live</strong></div>
+          <div class="rates-timestamp">Live Clock: <strong id="ratesTimestamp">Streaming...</strong></div>
           <button class="rates-refresh-btn" id="ratesRefreshBtn" aria-label="Refresh live bullion rates">
-            <span class="rates-refresh-icon">⟳</span> Refresh (<span class="rates-countdown" id="refreshCountdown">60s</span>)
+            <span class="rates-refresh-icon">⟳</span> Sync Feed
           </button>
         </div>
       </div>
@@ -176,9 +176,10 @@
             <div class="rate-card__icon">◈</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRate24k_1g">₹7,480</span>
+            <span class="rate-card__price-val" id="cardRate24k_1g">₹7,480.00</span>
             <span class="rate-card__price-unit">/ 1 gram</span>
           </div>
+          <div class="trend-badge trend-badge--up" id="trendGold24k">▲ +₹18.50 (+0.25%)</div>
           <ul class="rate-card__breakdown">
             <li><span>10 Grams (1 Tola)</span> <strong id="cardRate24k_10g">₹74,800</strong></li>
             <li><span>Purity Standard</span> <strong>99.99%</strong></li>
@@ -196,9 +197,10 @@
             <div class="rate-card__icon">✦</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRate22k_1g">₹6,855</span>
+            <span class="rate-card__price-val" id="cardRate22k_1g">₹6,855.00</span>
             <span class="rate-card__price-unit">/ 1 gram</span>
           </div>
+          <div class="trend-badge trend-badge--up" id="trendGold22k">▲ +₹16.95 (+0.25%)</div>
           <ul class="rate-card__breakdown">
             <li><span>8 Grams (1 Pavan)</span> <strong id="cardRate22k_8g">₹54,840</strong></li>
             <li><span>Purity Standard</span> <strong>91.60%</strong></li>
@@ -216,9 +218,10 @@
             <div class="rate-card__icon">◇</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRate18k_1g">₹5,610</span>
+            <span class="rate-card__price-val" id="cardRate18k_1g">₹5,610.00</span>
             <span class="rate-card__price-unit">/ 1 gram</span>
           </div>
+          <div class="trend-badge trend-badge--up" style="visibility:hidden">▲ +0.00</div>
           <ul class="rate-card__breakdown">
             <li><span>10 Grams</span> <strong id="cardRate18k_10g">₹56,100</strong></li>
             <li><span>Purity Standard</span> <strong>75.00%</strong></li>
@@ -239,6 +242,7 @@
             <span class="rate-card__price-val" id="cardRateSilver_1g">₹91.50</span>
             <span class="rate-card__price-unit">/ 1 gram</span>
           </div>
+          <div class="trend-badge trend-badge--up" id="trendSilver999">▲ +₹0.60 (+0.66%)</div>
           <ul class="rate-card__breakdown">
             <li><span>1 Kilogram (1000g)</span> <strong id="cardRateSilver_1kg">₹91,500</strong></li>
             <li><span>Purity Standard</span> <strong>99.90%</strong></li>
@@ -253,7 +257,7 @@
         <div class="rates-table-wrap">
           <div class="rates-table-head">
             <h3>Multi-Weight Price Sheet</h3>
-            <p>Live spot benchmark across standard bullion and jewellery denominations</p>
+            <p>Live spot market benchmark across standard bullion and jewellery denominations</p>
           </div>
           <div style="overflow-x: auto;">
             <table class="rates-table">
@@ -312,7 +316,7 @@
             </table>
           </div>
           <p class="rates-table-note">
-            * Benchmark indicative prices aligned with CapsGold Hyderabad and IBJA spot quotes. Final billing will reflect live transaction rates at counter confirmation.
+            * Real-time indicative spot prices. Final invoice rates confirmed at counter confirmation or over WhatsApp.
           </p>
         </div>
 

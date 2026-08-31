@@ -408,14 +408,20 @@
   color: var(--gold-dark);
 }
 .rate-card__price-main {
-  margin: 8px 0 14px;
+  margin: 8px 0 6px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
 .rate-card__price-val {
-  font-family: var(--serif);
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 34px;
   font-weight: 600;
   color: var(--ink);
   line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+  transition: color .25s ease, text-shadow .25s ease;
 }
 .rate-card__price-unit {
   font-size: 12px;
@@ -423,6 +429,41 @@
   letter-spacing: .06em;
   margin-left: 4px;
 }
+
+/* Tick-by-Tick Stock Market Flash Animations */
+.tick-up {
+  color: #059669 !important;
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+.tick-down {
+  color: #DC2626 !important;
+  text-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+}
+
+.trend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Jost', sans-serif;
+  font-variant-numeric: tabular-nums;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin: 4px 0 12px;
+  letter-spacing: 0.02em;
+}
+.trend-badge--up {
+  background: rgba(16, 185, 129, 0.12);
+  color: #065F46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+.trend-badge--down {
+  background: rgba(220, 38, 38, 0.12);
+  color: #991B1B;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
 .rate-card__breakdown {
   list-style: none;
   display: flex;
@@ -433,6 +474,7 @@
   margin-top: auto;
   font-size: 13px;
   color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 .rate-card__breakdown li {
   display: flex;
@@ -442,6 +484,7 @@
 .rate-card__breakdown strong {
   color: var(--ink);
   font-weight: 500;
+  font-family: 'Jost', sans-serif;
 }
 
 /* Bottom 2-Column: Detailed Table + Calculator */
