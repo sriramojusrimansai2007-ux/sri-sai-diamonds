@@ -19,11 +19,11 @@ export const CONFIG = {
   address: 'Nelco line, Road no 3, Bazar area, Bellampalli, Telangana 504251',
   hours: 'Mon – Sat: 10:00 AM – 8:30 PM | Sun: 10:00 AM – 2:00 PM',
 
-  // Live Bullion Rates (CapsGold Hyderabad Benchmark · 3% GST Included)
+  // Live Bullion Rates (Spot Market Benchmark · 3% GST Included)
   rates: {
     gold24k: '₹1,59,650 /10g',
     gold22k: '₹1,46,350 /10g',
     silver999: '₹2,67,800 /kg',
-    note: "CapsGold Benchmark (3% GST Included · Live 1-Second Updates)"
+    note: "Live Spot Bullion (3% GST Included · Live 1-Second Updates)"
   }
 };

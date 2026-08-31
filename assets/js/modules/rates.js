@@ -8,7 +8,7 @@ import { CONFIG } from '../config.js';
 import { $, $$, el } from './dom.js';
 import { toast } from './ui.js';
 
-// CapsGold Hyderabad Bullion Benchmark (3% GST Included Directly)
+// Real-Time Bullion Rates Benchmark (3% GST Included Directly)
 const GST_FACTOR = 1.03; // 3% Indian Bullion GST
 
 const BASE_EX_GST = {
@@ -150,7 +150,7 @@ export async function fetchLiveSpotFeed(manualTrigger = false) {
       if (data && data.price) silverPriceOz = data.price;
     }
 
-    // Scale movements relative to CapsGold benchmark with 3% GST included
+    // Scale movements relative to spot benchmark with 3% GST included
     if (goldPriceOz > 0) {
       const ratio = Math.max(0.97, Math.min(1.03, goldPriceOz / 4431.20));
       BASE_EX_GST.gold24k = Math.round(15500 * ratio);
