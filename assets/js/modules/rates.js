@@ -13,7 +13,7 @@ const GST_FACTOR = 1.03; // 3% Indian Bullion GST
 
 const BASE_EX_GST = {
   gold24k: 15500.00,
-  gold22k: 14200.00,
+  gold22k: 14208.33,
   gold18k: 11625.00,
   silver999: 260.00,
   silver925: 240.50
@@ -21,11 +21,11 @@ const BASE_EX_GST = {
 
 // Rates with 3% GST included directly
 const BASE_RATES = {
-  gold24k: Math.round(BASE_EX_GST.gold24k * GST_FACTOR * 100) / 100, // ₹15,965.00
-  gold22k: Math.round(BASE_EX_GST.gold22k * GST_FACTOR * 100) / 100, // ₹14,626.00
-  gold18k: Math.round(BASE_EX_GST.gold18k * GST_FACTOR * 100) / 100, // ₹11,973.75
-  silver999: Math.round(BASE_EX_GST.silver999 * GST_FACTOR * 100) / 100, // ₹267.80
-  silver925: Math.round(BASE_EX_GST.silver925 * GST_FACTOR * 100) / 100  // ₹247.70
+  gold24k: 15965.00,                                                  // ₹15,965.00 / 1g
+  gold22k: Math.round(15965.00 * (22 / 24) * 100) / 100,              // ₹14,634.58 / 1g
+  gold18k: Math.round(15965.00 * 0.75 * 100) / 100,                  // ₹11,973.75 / 1g
+  silver999: Math.round(260.00 * GST_FACTOR * 100) / 100,             // ₹267.80 / 1g
+  silver925: Math.round(260.00 * GST_FACTOR * 0.925 * 100) / 100      // ₹247.72 / 1g
 };
 
 export let liveRates = {
@@ -103,7 +103,7 @@ function startSecondBySecondTicks() {
       liveRates.prev_silver999_1g = liveRates.silver999_1g;
 
       liveRates.gold24k_1g = Math.round(newGold24k * 100) / 100;
-      liveRates.gold22k_1g = Math.round((liveRates.gold24k_1g * 0.916) * 100) / 100;
+      liveRates.gold22k_1g = Math.round((liveRates.gold24k_1g * (22 / 24)) * 100) / 100;
       liveRates.gold18k_1g = Math.round((liveRates.gold24k_1g * 0.750) * 100) / 100;
 
       liveRates.silver999_1g = Math.round(newSilver999 * 100) / 100;
@@ -154,12 +154,12 @@ export async function fetchLiveSpotFeed(manualTrigger = false) {
     if (goldPriceOz > 0) {
       const ratio = Math.max(0.97, Math.min(1.03, goldPriceOz / 4431.20));
       BASE_EX_GST.gold24k = Math.round(15500 * ratio);
-      BASE_EX_GST.gold22k = Math.round(BASE_EX_GST.gold24k * 0.916 * 100) / 100;
+      BASE_EX_GST.gold22k = Math.round(BASE_EX_GST.gold24k * (22 / 24) * 100) / 100;
       BASE_EX_GST.gold18k = Math.round(BASE_EX_GST.gold24k * 0.750 * 100) / 100;
 
       BASE_RATES.gold24k = Math.round(BASE_EX_GST.gold24k * GST_FACTOR * 100) / 100;
-      BASE_RATES.gold22k = Math.round(BASE_EX_GST.gold22k * GST_FACTOR * 100) / 100;
-      BASE_RATES.gold18k = Math.round(BASE_EX_GST.gold18k * GST_FACTOR * 100) / 100;
+      BASE_RATES.gold22k = Math.round(BASE_RATES.gold24k * (22 / 24) * 100) / 100;
+      BASE_RATES.gold18k = Math.round(BASE_RATES.gold24k * 0.750 * 100) / 100;
     }
 
     if (silverPriceOz > 0) {
@@ -168,7 +168,7 @@ export async function fetchLiveSpotFeed(manualTrigger = false) {
       BASE_EX_GST.silver925 = Math.round(BASE_EX_GST.silver999 * 0.925 * 100) / 100;
 
       BASE_RATES.silver999 = Math.round(BASE_EX_GST.silver999 * GST_FACTOR * 100) / 100;
-      BASE_RATES.silver925 = Math.round(BASE_EX_GST.silver925 * GST_FACTOR * 100) / 100;
+      BASE_RATES.silver925 = Math.round(BASE_RATES.silver999 * 0.925 * 100) / 100;
     }
 
     liveRates.gold24k_1g = BASE_RATES.gold24k;
@@ -220,7 +220,7 @@ function updateDOM(isTick = false) {
 
   // Trend Badges (▲ / ▼)
   updateTrendBadge('#trendGold24k', liveRates.dayChangeGold, liveRates.dayChangePercentGold);
-  updateTrendBadge('#trendGold22k', liveRates.dayChangeGold * 0.916, liveRates.dayChangePercentGold);
+  updateTrendBadge('#trendGold22k', liveRates.dayChangeGold * (22 / 24), liveRates.dayChangePercentGold);
   updateTrendBadge('#trendSilver999', liveRates.dayChangeSilver, liveRates.dayChangePercentSilver);
 
   // 3. Multi-Weight Rate Table
