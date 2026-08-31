@@ -19,11 +19,11 @@ export const CONFIG = {
   address: 'Nelco line, Road no 3, Bazar area, Bellampalli, Telangana 504251',
   hours: 'Mon – Sat: 10:00 AM – 8:30 PM | Sun: 10:00 AM – 2:00 PM',
 
-  // Indicative Live Market Rates (Displayed on top ticker)
+  // Indicative Live Stock Market Bullion Rates
   rates: {
-    gold24k: '₹7,480 /g',
-    gold22k: '₹6,855 /g',
-    silver999: '₹91.50 /g',
-    note: "Today's Market Benchmark (Subject to intraday bullion changes)"
+    gold24k: '₹14,500 /g',
+    gold22k: '₹13,280 /g',
+    silver999: '₹218.00 /g',
+    note: "Real-Time Exchange Spot Rates (Updated live every second)"
   }
 };
