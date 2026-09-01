@@ -11,3 +11,4 @@
   from = "/api/rates/health"
   to = "/.netlify/functions/rates"
   status = 200
+
