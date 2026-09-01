@@ -352,3 +352,4 @@ function fetchCapsGoldApi(url, apiKey) {
     }
   });
 }
+

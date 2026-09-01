@@ -84,3 +84,4 @@ Run the native test suite to verify calculation accuracy:
 npm test
 ```
 All 7 unit tests test conversions from `₹/10g`, `₹/g`, and `₹/kg`, ensuring zero double adjustments.
+

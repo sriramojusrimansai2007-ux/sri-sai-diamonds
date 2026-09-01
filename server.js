@@ -119,3 +119,4 @@ server.listen(PORT, () => {
   console.log(`📡 Rates API:   http://localhost:${PORT}/api/rates`);
   console.log(`======================================================\n`);
 });
+

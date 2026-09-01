@@ -129,3 +129,4 @@ test('7. Service Health Check & Benchmark Fallback Output', async () => {
   assert.ok(data.rawCapsGold);
   assert.ok(data.adjustments);
 });
+
