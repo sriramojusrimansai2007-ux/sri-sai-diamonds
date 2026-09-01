@@ -29,11 +29,20 @@ export function toast(msg, action = null) {
 }
 
 export function initReveal() {
+  if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+    document.querySelectorAll('.reveal').forEach(n => n.classList.add('in'));
+    return;
+  }
+
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
-      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      if (en.isIntersecting) {
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
     });
-  }, { threshold: .12 });
+  }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+
   document.querySelectorAll('.reveal').forEach(n => io.observe(n));
 }
 
