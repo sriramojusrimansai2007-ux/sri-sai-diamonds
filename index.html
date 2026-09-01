@@ -133,28 +133,27 @@
     </div>
   </div>
 
-  <!-- ============ MARQUEE ============ -->
-  <div class="marquee" aria-hidden="true"><div class="marquee__track" id="mq"></div></div>
-
   <!-- ============ LIVE RATES SECTION ============ -->
-  <section class="section rates-sec" id="rates">
+  <section class="rates-section section" id="rates">
     <div class="wrap">
       <div class="sec-head reveal">
         <div>
-          <span class="eyebrow">Real-Time Spot Bullion Market</span>
-          <h2 class="sec-title">Live Gold &amp; Silver <em>Rates</em></h2>
+          <span class="eyebrow">Real-Time Market Benchmark</span>
+          <h2 class="sec-title">Live Bullion Rates</h2>
         </div>
+        <p class="sec-subtitle">
+          Real-time Gold and Silver spot rates with 3% GST included directly. Transparent, reliable, and updated every second.
+        </p>
       </div>
 
-      <!-- Rates Meta Status Bar -->
+      <!-- Live Meta Status Bar -->
       <div class="rates-meta-bar reveal">
         <div class="rates-meta-left">
-          <div class="market-status market-status--open" id="marketStatusBadge">
-            <span class="market-status__dot"></span> Live Market Session
-          </div>
-          <div class="rates-source-tag">
-            <span>● Real-Time Spot Stream</span> (All Rates Include 3% GST · Updates Every Second)
-          </div>
+          <span class="rates-live-badge" id="ratesLiveBadge">
+            <span class="rates-pulse"></span>
+            <span id="ratesBadgeText">● Live Bullion Stream (Incl. 3% GST)</span>
+          </span>
+          <span class="rates-source-tag" id="ratesSourceTag">Spot Market Benchmark Feed</span>
         </div>
         <div class="rates-meta-right">
           <div class="rates-timestamp">Live Clock: <strong id="ratesTimestamp">Streaming...</strong></div>
@@ -176,12 +175,12 @@
             <div class="rate-card__icon">◈</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRate24k_10g_main">₹1,59,650</span>
+            <span class="rate-card__price-val" id="cardRate24k_10g_main">₹1,57,743</span>
             <span class="rate-card__price-unit">/ 10 grams (1 Tola)</span>
           </div>
-          <div class="trend-badge trend-badge--up" id="trendGold24k">▲ +₹450.00 (+0.28%)</div>
+          <div class="trend-badge trend-badge--up" id="trendGold24k">▲ +₹425.00 (+0.27%)</div>
           <ul class="rate-card__breakdown">
-            <li><span>1 Gram Rate</span> <strong id="cardRate24k_1g">₹15,965.00</strong></li>
+            <li><span>1 Gram Rate</span> <strong id="cardRate24k_1g">₹15,774.30</strong></li>
             <li><span>Purity Standard</span> <strong>99.99%</strong></li>
             <li><span>GST Status</span> <strong style="color:#065F46">3% GST Included</strong></li>
           </ul>
@@ -197,12 +196,12 @@
             <div class="rate-card__icon">✦</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRate22k_10g_main">₹1,46,350</span>
+            <span class="rate-card__price-val" id="cardRate22k_10g_main">₹1,44,598</span>
             <span class="rate-card__price-unit">/ 10 grams</span>
           </div>
-          <div class="trend-badge trend-badge--up" id="trendGold22k">▲ +₹412.50 (+0.28%)</div>
+          <div class="trend-badge trend-badge--up" id="trendGold22k">▲ +₹389.58 (+0.27%)</div>
           <ul class="rate-card__breakdown">
-            <li><span>1 Gram Rate</span> <strong id="cardRate22k_1g">₹14,635.00</strong></li>
+            <li><span>1 Gram Rate</span> <strong id="cardRate22k_1g">₹14,459.78</strong></li>
             <li><span>Purity Standard</span> <strong>91.60% (BIS 916)</strong></li>
             <li><span>GST Status</span> <strong style="color:#065F46">3% GST Included</strong></li>
           </ul>
@@ -218,12 +217,12 @@
             <div class="rate-card__icon">◇</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRate18k_10g_main">₹1,19,738</span>
+            <span class="rate-card__price-val" id="cardRate18k_10g_main">₹1,18,307</span>
             <span class="rate-card__price-unit">/ 10 grams</span>
           </div>
           <div class="trend-badge trend-badge--up" style="visibility:hidden">▲ +0.00</div>
           <ul class="rate-card__breakdown">
-            <li><span>1 Gram Rate</span> <strong id="cardRate18k_1g">₹11,973.75</strong></li>
+            <li><span>1 Gram Rate</span> <strong id="cardRate18k_1g">₹11,830.73</strong></li>
             <li><span>Purity Standard</span> <strong>75.00% (18K)</strong></li>
             <li><span>GST Status</span> <strong style="color:#065F46">3% GST Included</strong></li>
           </ul>
@@ -239,13 +238,13 @@
             <div class="rate-card__icon">⚖</div>
           </div>
           <div class="rate-card__price-main">
-            <span class="rate-card__price-val" id="cardRateSilver_1kg_main">₹2,67,800</span>
+            <span class="rate-card__price-val" id="cardRateSilver_1kg_main">₹2,40,741</span>
             <span class="rate-card__price-unit">/ 1 Kilogram (kg)</span>
           </div>
-          <div class="trend-badge trend-badge--up" id="trendSilver999">▲ +₹1,600.00 (+0.60%)</div>
+          <div class="trend-badge trend-badge--up" id="trendSilver999">▲ +₹1,400.00 (+0.58%)</div>
           <ul class="rate-card__breakdown">
-            <li><span>10 Grams Rate</span> <strong id="cardRateSilver_10g">₹2,678.00</strong></li>
-            <li><span>1 Gram Rate</span> <strong id="cardRateSilver_1g">₹267.80</strong></li>
+            <li><span>10 Grams Rate</span> <strong id="cardRateSilver_10g">₹2,407.41</strong></li>
+            <li><span>1 Gram Rate</span> <strong id="cardRateSilver_1g">₹240.74</strong></li>
             <li><span>GST Status</span> <strong style="color:#065F46">3% GST Included</strong></li>
           </ul>
         </div>
@@ -273,38 +272,38 @@
               <tbody>
                 <tr>
                   <td><strong>24K Gold (999.9)</strong></td>
-                  <td id="tbl24k_1g">₹15,965</td>
-                  <td id="tbl24k_10g">₹1,59,650</td>
-                  <td id="tbl24k_100g">₹15,96,500</td>
-                  <td id="tbl24k_1kg">₹1,59,65,000</td>
+                  <td id="tbl24k_1g">₹15,774.30</td>
+                  <td id="tbl24k_10g">₹1,57,743</td>
+                  <td id="tbl24k_100g">₹15,77,430</td>
+                  <td id="tbl24k_1kg">₹1,57,74,300</td>
                 </tr>
                 <tr>
                   <td><strong>22K Gold (916)</strong></td>
-                  <td id="tbl22k_1g">₹14,635</td>
-                  <td id="tbl22k_10g">₹1,46,350</td>
-                  <td id="tbl22k_100g">₹14,63,500</td>
-                  <td id="tbl22k_1kg">₹1,46,35,000</td>
+                  <td id="tbl22k_1g">₹14,459.78</td>
+                  <td id="tbl22k_10g">₹1,44,598</td>
+                  <td id="tbl22k_100g">₹14,45,978</td>
+                  <td id="tbl22k_1kg">₹1,44,59,775</td>
                 </tr>
                 <tr>
                   <td><strong>18K Gold (750)</strong></td>
-                  <td id="tbl18k_1g">₹11,974</td>
-                  <td id="tbl18k_10g">₹1,19,738</td>
-                  <td id="tbl18k_100g">₹11,97,375</td>
-                  <td id="tbl18k_1kg">₹1,19,73,750</td>
+                  <td id="tbl18k_1g">₹11,830.73</td>
+                  <td id="tbl18k_10g">₹1,18,307</td>
+                  <td id="tbl18k_100g">₹11,83,073</td>
+                  <td id="tbl18k_1kg">₹1,18,30,725</td>
                 </tr>
                 <tr>
                   <td><strong>999 Fine Silver</strong></td>
-                  <td id="tblSilver999_1g">₹267.80</td>
-                  <td id="tblSilver999_10g">₹2,678.00</td>
-                  <td id="tblSilver999_100g">₹26,780</td>
-                  <td id="tblSilver999_1kg">₹2,67,800</td>
+                  <td id="tblSilver999_1g">₹240.74</td>
+                  <td id="tblSilver999_10g">₹2,407.41</td>
+                  <td id="tblSilver999_100g">₹24,074</td>
+                  <td id="tblSilver999_1kg">₹2,40,741</td>
                 </tr>
                 <tr>
                   <td><strong>925 Sterling Silver</strong></td>
-                  <td id="tblSilver925_1g">₹247.72</td>
-                  <td id="tblSilver925_10g">₹2,477.20</td>
-                  <td id="tblSilver925_100g">₹24,772</td>
-                  <td id="tblSilver925_1kg">₹2,47,720</td>
+                  <td id="tblSilver925_1g">₹222.69</td>
+                  <td id="tblSilver925_10g">₹2,226.85</td>
+                  <td id="tblSilver925_100g">₹22,269</td>
+                  <td id="tblSilver925_1kg">₹2,22,685</td>
                 </tr>
               </tbody>
             </table>

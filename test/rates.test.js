@@ -92,41 +92,42 @@ test('5. Silver Unit Conversion: CapsGold ₹1,50,000 / kg -> Our Rate ₹1,530 
 
 test('6. Purity Derivatives: 22K (916) and 18K (750) mathematical accuracy without double adjustment', () => {
   const result = calculateSriSaiRates({
-    goldRate: 159150, // Base CapsGold
+    goldRate: 157243, // Base CapsGold (₹15,724.30/g)
     goldUnit: 'per_10g',
-    silverRate: 264800,
+    silverRate: 237741, // Base CapsGold (₹2,37,741/kg)
     silverUnit: 'per_kg',
     goldAdjustment: 500,
     silverAdjustment: 30
   });
 
-  // 24K: 159150 + 500 = 159650
-  assert.equal(result.ourRates.gold24k_10g, 159650);
-  assert.equal(result.ourRates.gold24k_1g, 15965);
+  // 24K: 157243 + 500 = 157743
+  assert.equal(result.ourRates.gold24k_10g, 157743);
+  assert.equal(result.ourRates.gold24k_1g, 15774.3);
 
-  // 22K (22/24): 159650 * (22/24) = 146345.83
-  const expected22k_10g = Math.round(159650 * (22 / 24) * 100) / 100;
+  // 22K (22/24): 157743 * (22/24) = 144597.75
+  const expected22k_10g = Math.round(157743 * (22 / 24) * 100) / 100;
   assert.equal(result.ourRates.gold22k_10g, expected22k_10g);
 
-  // 18K (18/24): 159650 * 0.75 = 119737.5
-  const expected18k_10g = Math.round(159650 * 0.75 * 100) / 100;
+  // 18K (18/24): 157743 * 0.75 = 118307.25
+  const expected18k_10g = Math.round(157743 * 0.75 * 100) / 100;
   assert.equal(result.ourRates.gold18k_10g, expected18k_10g);
 
-  // Silver 999: 264800 + 3000 = 267800 / kg
-  assert.equal(result.ourRates.silver999_1kg, 267800);
-  assert.equal(result.ourRates.silver999_10g, 2678);
-  assert.equal(result.ourRates.silver999_1g, 267.8);
+  // Silver 999: 237741 + 3000 = 240741 / kg
+  assert.equal(result.ourRates.silver999_1kg, 240741);
+  assert.equal(result.ourRates.silver999_10g, 2407.41);
+  assert.equal(result.ourRates.silver999_1g, 240.74);
 
-  // Silver 925 (92.5%): 267800 * 0.925 = 247715
-  assert.equal(result.ourRates.silver925_1kg, 247715);
+  // Silver 925 (92.5%): 240741 * 0.925 = 222685.43
+  assert.equal(result.ourRates.silver925_1kg, 222685.43);
 });
 
 test('7. Service Health Check & Benchmark Fallback Output', async () => {
   const data = await getLiveBullionRates();
   assert.equal(data.success, true);
-  assert.ok(data.ourRates.gold24k_10g > 0);
-  assert.ok(data.ourRates.silver999_10g > 0);
+  assert.equal(data.ourRates.gold24k_10g, 157743);
+  assert.equal(data.ourRates.silver999_1kg, 240741);
   assert.ok(data.rawCapsGold);
   assert.ok(data.adjustments);
 });
+
 
