@@ -92,33 +92,33 @@ test('5. Silver Unit Conversion: CapsGold ₹1,50,000 / kg -> Our Rate ₹1,530 
 
 test('6. Purity Derivatives: 22K (916) and 18K (750) mathematical accuracy without double adjustment (+400 gold, +25 silver)', () => {
   const result = calculateSriSaiRates({
-    goldRate: 157243, // Base CapsGold (₹15,724.30/g)
+    goldRate: 156843, // Base CapsGold (₹15,684.30/g)
     goldUnit: 'per_10g',
-    silverRate: 237741, // Base CapsGold (₹2,37,741/kg)
+    silverRate: 235241, // Base CapsGold (₹2,35,241/kg)
     silverUnit: 'per_kg',
     goldAdjustment: 400,
     silverAdjustment: 25
   });
 
-  // 24K: 157243 + 400 = 157643
-  assert.equal(result.ourRates.gold24k_10g, 157643);
-  assert.equal(result.ourRates.gold24k_1g, 15764.3);
+  // 24K: 156843 + 400 = 157243
+  assert.equal(result.ourRates.gold24k_10g, 157243);
+  assert.equal(result.ourRates.gold24k_1g, 15724.3);
 
-  // 22K (22/24): 157643 * (22/24) = 144506.08
-  const expected22k_10g = Math.round(157643 * (22 / 24) * 100) / 100;
+  // 22K (22/24): 157243 * (22/24) = 144139.42
+  const expected22k_10g = Math.round(157243 * (22 / 24) * 100) / 100;
   assert.equal(result.ourRates.gold22k_10g, expected22k_10g);
 
-  // 18K (18/24): 157643 * 0.75 = 118232.25
-  const expected18k_10g = Math.round(157643 * 0.75 * 100) / 100;
+  // 18K (18/24): 157243 * 0.75 = 117932.25
+  const expected18k_10g = Math.round(157243 * 0.75 * 100) / 100;
   assert.equal(result.ourRates.gold18k_10g, expected18k_10g);
 
-  // Silver 999: 237741 + 2500 = 240241 / kg
-  assert.equal(result.ourRates.silver999_1kg, 240241);
-  assert.equal(result.ourRates.silver999_10g, 2402.41);
-  assert.equal(result.ourRates.silver999_1g, 240.24);
+  // Silver 999: 235241 + 2500 = 237741 / kg
+  assert.equal(result.ourRates.silver999_1kg, 237741);
+  assert.equal(result.ourRates.silver999_10g, 2377.41);
+  assert.equal(result.ourRates.silver999_1g, 237.74);
 
-  // Silver 925 (92.5%): 240241 * 0.925 = 222222.93
-  assert.equal(result.ourRates.silver925_1kg, 222222.93);
+  // Silver 925 (92.5%): 237741 * 0.925 = 219910.43
+  assert.equal(result.ourRates.silver925_1kg, 219910.43);
 });
 
 test('7. Service Health Check & Dynamic Live Spot Stream Output', async () => {

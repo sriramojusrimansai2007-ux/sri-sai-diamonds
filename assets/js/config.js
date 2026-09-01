@@ -21,9 +21,9 @@ export const CONFIG = {
 
   // Live Bullion Rates (Spot Market Benchmark · 3% GST Included)
   rates: {
-    gold24k: '₹1,57,643 /10g',
-    gold22k: '₹1,44,506 /10g',
-    silver999: '₹2,40,241 /kg',
+    gold24k: '₹1,57,243 /10g',
+    gold22k: '₹1,44,139 /10g',
+    silver999: '₹2,37,741 /kg',
     note: "Live Spot Bullion (3% GST Included · Live Updates)"
   }
 };

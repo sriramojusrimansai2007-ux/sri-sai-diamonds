@@ -21,11 +21,11 @@ const BASE_EX_GST = {
 
 // Rates calibrated to live CapsGold Secunderabad rate with shop adjustments (+₹400/10g Gold, +₹25/10g Silver)
 const BASE_RATES = {
-  gold24k: 15764.30,                                                   // ₹15,764.30 / 1g (₹1,57,643 / 10g)
-  gold22k: Math.round(15764.30 * (22 / 24) * 100) / 100,               // ₹14,450.61 / 1g (₹1,44,506 / 10g)
-  gold18k: Math.round(15764.30 * 0.75 * 100) / 100,                   // ₹11,823.23 / 1g (₹1,18,232 / 10g)
-  silver999: 240.24,                                                   // ₹240.24 / 1g (₹2,40,241 / 1kg)
-  silver925: Math.round(240.241 * 0.925 * 100) / 100                  // ₹222.22 / 1g (₹2,22,223 / 1kg)
+  gold24k: 15724.30,                                                   // ₹15,724.30 / 1g (₹1,57,243 / 10g)
+  gold22k: Math.round(15724.30 * (22 / 24) * 100) / 100,               // ₹14,413.94 / 1g (₹1,44,139 / 10g)
+  gold18k: Math.round(15724.30 * 0.75 * 100) / 100,                   // ₹11,793.23 / 1g (₹1,17,932 / 10g)
+  silver999: 237.74,                                                   // ₹237.74 / 1g (₹2,37,741 / 1kg)
+  silver925: Math.round(237.741 * 0.925 * 100) / 100                  // ₹219.91 / 1g (₹2,19,910 / 1kg)
 };
 
 export let liveRates = {
