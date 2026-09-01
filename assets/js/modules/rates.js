@@ -19,13 +19,13 @@ const BASE_EX_GST = {
   silver925: 240.50
 };
 
-// Rates calibrated to live CapsGold Secunderabad rate with shop adjustments (+₹500/10g Gold, +₹30/10g Silver)
+// Rates calibrated to live CapsGold Secunderabad rate with shop adjustments (+₹400/10g Gold, +₹25/10g Silver)
 const BASE_RATES = {
-  gold24k: 15774.30,                                                   // ₹15,774.30 / 1g (₹1,57,743 / 10g)
-  gold22k: Math.round(15774.30 * (22 / 24) * 100) / 100,               // ₹14,459.78 / 1g (₹1,44,598 / 10g)
-  gold18k: Math.round(15774.30 * 0.75 * 100) / 100,                   // ₹11,830.73 / 1g (₹1,18,307 / 10g)
-  silver999: 240.74,                                                   // ₹240.74 / 1g (₹2,40,741 / 1kg)
-  silver925: Math.round(240.741 * 0.925 * 100) / 100                  // ₹222.69 / 1g (₹2,22,685 / 1kg)
+  gold24k: 15764.30,                                                   // ₹15,764.30 / 1g (₹1,57,643 / 10g)
+  gold22k: Math.round(15764.30 * (22 / 24) * 100) / 100,               // ₹14,450.61 / 1g (₹1,44,506 / 10g)
+  gold18k: Math.round(15764.30 * 0.75 * 100) / 100,                   // ₹11,823.23 / 1g (₹1,18,232 / 10g)
+  silver999: 240.24,                                                   // ₹240.24 / 1g (₹2,40,241 / 1kg)
+  silver925: Math.round(240.241 * 0.925 * 100) / 100                  // ₹222.22 / 1g (₹2,22,223 / 1kg)
 };
 
 export let liveRates = {
@@ -36,10 +36,10 @@ export let liveRates = {
   silver925_1g: BASE_RATES.silver925,
   prev_gold24k_1g: BASE_RATES.gold24k,
   prev_silver999_1g: BASE_RATES.silver999,
-  dayChangeGold: +42.50,
-  dayChangePercentGold: +0.27,
-  dayChangeSilver: +1.40,
-  dayChangePercentSilver: +0.58,
+  dayChangeGold: +40.00,
+  dayChangePercentGold: +0.25,
+  dayChangeSilver: +1.25,
+  dayChangePercentSilver: +0.52,
   lastUpdated: new Date(),
   source: 'Live Exchange Feed'
 };

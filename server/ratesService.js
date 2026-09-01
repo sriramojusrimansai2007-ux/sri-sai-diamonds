@@ -16,13 +16,13 @@ import http from 'node:http';
 
 // Default Configurable Adjustments (can be overridden via environment variables)
 export const DEFAULT_CONFIG = {
-  GOLD_ADJUSTMENT_PER_10G: 500,    // ₹500 per 10g (+₹50/gram)
-  SILVER_ADJUSTMENT_PER_10G: 30,   // ₹30 per 10g (+₹3/gram, +₹3,000/kg)
+  GOLD_ADJUSTMENT_PER_10G: 400,    // ₹400 per 10g (+₹40/gram)
+  SILVER_ADJUSTMENT_PER_10G: 25,   // ₹25 per 10g (+₹2.50/gram, +₹2,500/kg)
   CAPSGOLD_API_KEY: process.env.CAPSGOLD_API_KEY || '',
   CAPSGOLD_API_URL: process.env.CAPSGOLD_API_URL || '',
   // Benchmark Fallback Baselines (CapsGold Base before adjustment from official CapsGold app)
-  FALLBACK_CAPSGOLD_GOLD_24K_PER_10G: 157243.00,  // ₹15,724.30/g (+₹500 -> ₹1,57,743.00 / 10g or ₹15,774.30/g)
-  FALLBACK_CAPSGOLD_SILVER_999_PER_KG: 237741.00  // ₹2,37,741/kg (+₹3,000 -> ₹2,40,741.00 / kg or ₹2,407.41 / 10g)
+  FALLBACK_CAPSGOLD_GOLD_24K_PER_10G: 157243.00,  // ₹15,724.30/g (+₹400 -> ₹1,57,643.00 / 10g or ₹15,764.30/g)
+  FALLBACK_CAPSGOLD_SILVER_999_PER_KG: 237741.00  // ₹2,37,741/kg (+₹2,500 -> ₹2,40,241.00 / kg or ₹2,402.41 / 10g)
 };
 
 /**
