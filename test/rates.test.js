@@ -121,13 +121,13 @@ test('6. Purity Derivatives: 22K (916) and 18K (750) mathematical accuracy witho
   assert.equal(result.ourRates.silver925_1kg, 222685.43);
 });
 
-test('7. Service Health Check & Benchmark Fallback Output', async () => {
+test('7. Service Health Check & Dynamic Live Spot Stream Output', async () => {
   const data = await getLiveBullionRates();
   assert.equal(data.success, true);
-  assert.equal(data.ourRates.gold24k_10g, 157743);
-  assert.equal(data.ourRates.silver999_1kg, 240741);
-  assert.ok(data.rawCapsGold);
-  assert.ok(data.adjustments);
+  assert.ok(data.ourRates.gold24k_10g > 100000, 'Gold rate should be live and positive');
+  assert.ok(data.ourRates.silver999_1kg > 150000, 'Silver rate should be live and positive');
+  assert.ok(data.rawCapsGold, 'Raw baseline rates should be present');
+  assert.ok(data.adjustments, 'Adjustment metadata should be present');
 });
 
 
