@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/rates"
+  to = "/.netlify/functions/rates"
+  status = 200
+
+[[redirects]]
+  from = "/api/rates/health"
+  to = "/.netlify/functions/rates"
+  status = 200
