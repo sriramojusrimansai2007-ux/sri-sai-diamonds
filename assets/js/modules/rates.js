@@ -8,18 +8,7 @@ import { CONFIG } from '../config.js';
 import { $, $$, el } from './dom.js';
 import { toast } from './ui.js';
 
-// Real-Time Bullion Rates Benchmark (3% GST Included Directly)
-const GST_FACTOR = 1.03; // 3% Indian Bullion GST
-
-const BASE_EX_GST = {
-  gold24k: 15500.00,
-  gold22k: 14208.33,
-  gold18k: 11625.00,
-  silver999: 260.00,
-  silver925: 240.50
-};
-
-// Rates calibrated to live CapsGold Secunderabad rate with shop adjustments (+₹400/10g Gold, +₹25/10g Silver)
+// Benchmark baseline rates calibrated to CapsGold Secunderabad + shop adjustments (+₹400/10g Gold, +₹25/10g Silver)
 const BASE_RATES = {
   gold24k: 15724.30,                                                   // ₹15,724.30 / 1g (₹1,57,243 / 10g)
   gold22k: Math.round(15724.30 * (22 / 24) * 100) / 100,               // ₹14,413.94 / 1g (₹1,44,139 / 10g)
@@ -45,6 +34,8 @@ export let liveRates = {
 };
 
 let oneSecInterval = null;
+let apiSyncInterval = null;
+
 export async function initRates() {
   if (typeof document !== 'undefined') {
     renderRateSection();
@@ -83,17 +74,16 @@ function startSecondBySecondTicks() {
   if (oneSecInterval) clearInterval(oneSecInterval);
 
   oneSecInterval = setInterval(() => {
-    tickCount++;
     liveRates.lastUpdated = new Date();
 
-    // Natural mean-reverting micro-tick around Secunderabad benchmark
-    if (Math.random() > 0.3) {
-      const goldOffset = (BASE_RATES.gold24k - liveRates.gold24k_1g) * 0.15;
-      const goldDelta = (Math.random() * 0.60 - 0.30) + goldOffset;
+    // Natural micro-fluctuation around live benchmark
+    if (Math.random() > 0.35) {
+      const goldOffset = (BASE_RATES.gold24k - liveRates.gold24k_1g) * 0.12;
+      const goldDelta = (Math.random() * 0.40 - 0.20) + goldOffset;
       const newGold24k = liveRates.gold24k_1g + goldDelta;
 
-      const silverOffset = (BASE_RATES.silver999 - liveRates.silver999_1g) * 0.15;
-      const silverDelta = (Math.random() * 0.08 - 0.04) + silverOffset;
+      const silverOffset = (BASE_RATES.silver999 - liveRates.silver999_1g) * 0.12;
+      const silverDelta = (Math.random() * 0.06 - 0.03) + silverOffset;
       const newSilver999 = liveRates.silver999_1g + silverDelta;
 
       liveRates.prev_gold24k_1g = liveRates.gold24k_1g;
@@ -107,10 +97,10 @@ function startSecondBySecondTicks() {
       liveRates.silver925_1g = Math.round((liveRates.silver999_1g * 0.925) * 100) / 100;
 
       // Update day change calculations
-      liveRates.dayChangeGold = Math.round((liveRates.gold24k_1g - (BASE_RATES.gold24k - 45.00)) * 100) / 100;
+      liveRates.dayChangeGold = Math.round((liveRates.gold24k_1g - (BASE_RATES.gold24k - 40.00)) * 100) / 100;
       liveRates.dayChangePercentGold = Math.round((liveRates.dayChangeGold / BASE_RATES.gold24k * 100) * 100) / 100;
 
-      liveRates.dayChangeSilver = Math.round((liveRates.silver999_1g - (BASE_RATES.silver999 - 1.60)) * 100) / 100;
+      liveRates.dayChangeSilver = Math.round((liveRates.silver999_1g - (BASE_RATES.silver999 - 1.25)) * 100) / 100;
       liveRates.dayChangePercentSilver = Math.round((liveRates.dayChangeSilver / BASE_RATES.silver999 * 100) * 100) / 100;
     }
 
