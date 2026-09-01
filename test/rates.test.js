@@ -1,0 +1,131 @@
+/**
+ * ===================================================================
+ * SRI SAI DIAMONDS & TOOLS — AUTOMATED RATES & ADJUSTMENT TEST SUITE
+ * ===================================================================
+ */
+
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  normalizeGoldRate,
+  normalizeSilverRate,
+  calculateSriSaiRates,
+  getLiveBullionRates
+} from '../server/ratesService.js';
+
+test('1. Gold Calculation: CapsGold ₹1,25,000 / 10g -> Our Rate ₹1,25,500 / 10g', () => {
+  const result = calculateSriSaiRates({
+    goldRate: 125000,
+    goldUnit: 'per_10g',
+    silverRate: 1500,
+    silverUnit: 'per_10g',
+    goldAdjustment: 500,
+    silverAdjustment: 30
+  });
+
+  // Expected Gold: 125000 + 500 = 125500 / 10g
+  assert.equal(result.ourRates.gold24k_10g, 125500, 'Gold 24K per 10g must equal 1,25,500');
+  assert.equal(result.ourRates.gold24k_1g, 12550, 'Gold 24K per 1g must equal 12,550');
+});
+
+test('2. Gold Unit Conversion: CapsGold ₹12,500 / gram -> Our Rate ₹1,25,500 / 10g (and ₹12,550 / gram)', () => {
+  const result = calculateSriSaiRates({
+    goldRate: 12500,
+    goldUnit: 'per_gram',
+    silverRate: 1500,
+    silverUnit: 'per_10g',
+    goldAdjustment: 500,
+    silverAdjustment: 30
+  });
+
+  // Expected: ₹12,500 / g = ₹1,25,000 / 10g -> + ₹500 = ₹1,25,500 / 10g (and ₹12,550 / g)
+  assert.equal(result.ourRates.gold24k_10g, 125500, 'Converted Gold 24K per 10g must equal 1,25,500');
+  assert.equal(result.ourRates.gold24k_1g, 12550, 'Converted Gold 24K per 1g must equal 12,550 (+₹50/g)');
+});
+
+test('3. Silver Calculation: CapsGold ₹1,500 / 10g -> Our Rate ₹1,530 / 10g', () => {
+  const result = calculateSriSaiRates({
+    goldRate: 125000,
+    goldUnit: 'per_10g',
+    silverRate: 1500,
+    silverUnit: 'per_10g',
+    goldAdjustment: 500,
+    silverAdjustment: 30
+  });
+
+  // Expected Silver: 1500 + 30 = 1530 / 10g
+  assert.equal(result.ourRates.silver999_10g, 1530, 'Silver 999 per 10g must equal 1,530');
+  assert.equal(result.ourRates.silver999_1g, 153, 'Silver 999 per 1g must equal 153 (+₹3/g)');
+  assert.equal(result.ourRates.silver999_1kg, 153000, 'Silver 999 per 1kg must equal 1,53,000 (+₹3,000/kg)');
+});
+
+test('4. Silver Unit Conversion: CapsGold ₹150 / gram -> Our Rate ₹1,530 / 10g', () => {
+  const result = calculateSriSaiRates({
+    goldRate: 125000,
+    goldUnit: 'per_10g',
+    silverRate: 150,
+    silverUnit: 'per_gram',
+    goldAdjustment: 500,
+    silverAdjustment: 30
+  });
+
+  // Expected: ₹150 / g = ₹1,500 / 10g -> + ₹30 = ₹1,530 / 10g
+  assert.equal(result.ourRates.silver999_10g, 1530, 'Converted Silver per 10g must equal 1,530');
+  assert.equal(result.ourRates.silver999_1g, 153, 'Converted Silver per 1g must equal 153');
+});
+
+test('5. Silver Unit Conversion: CapsGold ₹1,50,000 / kg -> Our Rate ₹1,530 / 10g and ₹1,53,000 / kg', () => {
+  const result = calculateSriSaiRates({
+    goldRate: 125000,
+    goldUnit: 'per_10g',
+    silverRate: 150000,
+    silverUnit: 'per_kg',
+    goldAdjustment: 500,
+    silverAdjustment: 30
+  });
+
+  // Expected: ₹1,50,000 / kg = ₹1,500 / 10g -> + ₹30/10g (+₹3,000/kg) = ₹1,53,000 / kg (₹1,530 / 10g)
+  assert.equal(result.ourRates.silver999_1kg, 153000, 'Converted Silver per 1kg must equal 1,53,000');
+  assert.equal(result.ourRates.silver999_10g, 1530, 'Converted Silver per 10g must equal 1,530');
+  assert.equal(result.ourRates.silver999_1g, 153, 'Converted Silver per 1g must equal 153');
+});
+
+test('6. Purity Derivatives: 22K (916) and 18K (750) mathematical accuracy without double adjustment', () => {
+  const result = calculateSriSaiRates({
+    goldRate: 159150, // Base CapsGold
+    goldUnit: 'per_10g',
+    silverRate: 264800,
+    silverUnit: 'per_kg',
+    goldAdjustment: 500,
+    silverAdjustment: 30
+  });
+
+  // 24K: 159150 + 500 = 159650
+  assert.equal(result.ourRates.gold24k_10g, 159650);
+  assert.equal(result.ourRates.gold24k_1g, 15965);
+
+  // 22K (22/24): 159650 * (22/24) = 146345.83
+  const expected22k_10g = Math.round(159650 * (22 / 24) * 100) / 100;
+  assert.equal(result.ourRates.gold22k_10g, expected22k_10g);
+
+  // 18K (18/24): 159650 * 0.75 = 119737.5
+  const expected18k_10g = Math.round(159650 * 0.75 * 100) / 100;
+  assert.equal(result.ourRates.gold18k_10g, expected18k_10g);
+
+  // Silver 999: 264800 + 3000 = 267800 / kg
+  assert.equal(result.ourRates.silver999_1kg, 267800);
+  assert.equal(result.ourRates.silver999_10g, 2678);
+  assert.equal(result.ourRates.silver999_1g, 267.8);
+
+  // Silver 925 (92.5%): 267800 * 0.925 = 247715
+  assert.equal(result.ourRates.silver925_1kg, 247715);
+});
+
+test('7. Service Health Check & Benchmark Fallback Output', async () => {
+  const data = await getLiveBullionRates();
+  assert.equal(data.success, true);
+  assert.ok(data.ourRates.gold24k_10g > 0);
+  assert.ok(data.ourRates.silver999_10g > 0);
+  assert.ok(data.rawCapsGold);
+  assert.ok(data.adjustments);
+});

@@ -121,15 +121,37 @@ function startSecondBySecondTicks() {
 }
 
 /**
- * Fetches real-time spot prices from live APIs in background
+ * Fetches real-time spot prices from backend /api/rates endpoint
  */
 export async function fetchLiveSpotFeed(manualTrigger = false) {
   try {
-    const [goldRes, silverRes] = await Promise.allSettled([
-      fetch('https://api.gold-api.com/price/XAU'),
-      fetch('https://api.gold-api.com/price/XAG')
-    ]);
+    const res = await fetch('/api/rates');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.ourRates) {
+        BASE_RATES.gold24k = data.ourRates.gold24k_1g;
+        BASE_RATES.gold22k = data.ourRates.gold22k_1g;
+        BASE_RATES.gold18k = data.ourRates.gold18k_1g;
+        BASE_RATES.silver999 = data.ourRates.silver999_1g;
+        BASE_RATES.silver925 = data.ourRates.silver925_1g;
 
+        liveRates.gold24k_1g = BASE_RATES.gold24k;
+        liveRates.gold22k_1g = BASE_RATES.gold22k;
+        liveRates.gold18k_1g = BASE_RATES.gold18k;
+        liveRates.silver999_1g = BASE_RATES.silver999;
+        liveRates.silver925_1g = BASE_RATES.silver925;
+        liveRates.source = data.source || 'Live Bullion Feed';
+        liveRates.lastUpdated = data.lastUpdated ? new Date(data.lastUpdated) : new Date();
+
+        updateDOM(false);
+
+        if (manualTrigger) toast(data.isLive ? 'Synced with Official Live Feed' : 'Synced with Market Benchmark');
+        return;
+      }
+    }
+    throw new Error('API offline, using local benchmark');
+  } catch (err) {
+    // Fallback to local calibrated benchmark
     liveRates.gold24k_1g = BASE_RATES.gold24k;
     liveRates.gold22k_1g = BASE_RATES.gold22k;
     liveRates.gold18k_1g = BASE_RATES.gold18k;
@@ -137,10 +159,6 @@ export async function fetchLiveSpotFeed(manualTrigger = false) {
     liveRates.silver925_1g = BASE_RATES.silver925;
     liveRates.lastUpdated = new Date();
 
-    updateDOM(false);
-
-    if (manualTrigger) toast('Live exchange spot stream synced');
-  } catch (err) {
     updateDOM(false);
     if (manualTrigger) toast('Rates synced with current market session');
   }

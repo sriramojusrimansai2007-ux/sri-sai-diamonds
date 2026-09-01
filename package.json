@@ -1,0 +1,20 @@
+{
+  "name": "sri-sai-diamonds-rates-engine",
+  "version": "2.0.0",
+  "description": "Sri Sai Diamonds & Tools — Live Bullion Rates Engine with CapsGold Adjustment Proxy",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/rates.test.js"
+  },
+  "keywords": [
+    "gold",
+    "silver",
+    "bullion",
+    "rates",
+    "capsgold"
+  ],
+  "author": "Sri Sai Diamonds & Tools",
+  "license": "ISC"
+}
