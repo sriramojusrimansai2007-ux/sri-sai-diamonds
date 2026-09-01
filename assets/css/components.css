@@ -116,22 +116,45 @@
 }
 
 @media (max-width: 900px) {
-  .nav { padding: 14px 22px; }
+  .nav { padding: 14px 20px; }
   .nav__links {
     display: none;
-    position: fixed;
-    top: 54px;
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
-    background: var(--ivory);
+    background: #FAF7F2;
     flex-direction: column;
-    padding: 30px 24px;
-    gap: 20px;
-    border-bottom: 1px solid var(--hairline);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    padding: 20px 24px;
+    gap: 14px;
+    border-bottom: 1.5px solid var(--gold);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+    z-index: 150;
   }
-  .nav__links.open { display: flex; }
-  .burger { display: flex; }
+  .nav__links.open {
+    display: flex;
+    animation: nav-drop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes nav-drop {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .nav__links a {
+    font-size: 13px;
+    letter-spacing: .16em;
+    padding: 8px 0;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+  }
+  .burger {
+    display: flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
 }
 
 /* ---------- Luxury Buttons ---------- */

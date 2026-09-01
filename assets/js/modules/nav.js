@@ -19,4 +19,13 @@ export function initNav() {
     a.addEventListener('click', () => {
       if (navLinks) navLinks.classList.remove('open');
     }));
+
+  document.addEventListener('click', (e) => {
+    if (navLinks && navLinks.classList.contains('open')) {
+      if (!nav.contains(e.target)) {
+        navLinks.classList.remove('open');
+      }
+    }
+  });
 }
+
