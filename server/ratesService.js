@@ -22,7 +22,7 @@ export const DEFAULT_CONFIG = {
   CAPSGOLD_API_URL: process.env.CAPSGOLD_API_URL || '',
   // Benchmark Fallback Baselines (CapsGold Base before adjustment)
   FALLBACK_CAPSGOLD_GOLD_24K_PER_10G: 156843.00,  // ₹15,684.30/g (+₹400 -> ₹1,57,243.00 / 10g or ₹15,724.30/g)
-  FALLBACK_CAPSGOLD_SILVER_999_PER_KG: 235241.00  // ₹2,35,241/kg (+₹2,500 -> ₹2,37,741.00 / kg or ₹2,377.41 / 10g)
+  FALLBACK_CAPSGOLD_SILVER_999_PER_KG: 236500.00  // ₹2,36,500/kg (+₹2,500 -> ₹2,39,000.00 / kg or ₹239.00 / 1g)
 };
 
 /**

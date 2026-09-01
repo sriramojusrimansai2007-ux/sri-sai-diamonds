@@ -24,8 +24,8 @@ const BASE_RATES = {
   gold24k: 15724.30,                                                   // ₹15,724.30 / 1g (₹1,57,243 / 10g)
   gold22k: Math.round(15724.30 * (22 / 24) * 100) / 100,               // ₹14,413.94 / 1g (₹1,44,139 / 10g)
   gold18k: Math.round(15724.30 * 0.75 * 100) / 100,                   // ₹11,793.23 / 1g (₹1,17,932 / 10g)
-  silver999: 237.74,                                                   // ₹237.74 / 1g (₹2,37,741 / 1kg)
-  silver925: Math.round(237.741 * 0.925 * 100) / 100                  // ₹219.91 / 1g (₹2,19,910 / 1kg)
+  silver999: 239.00,                                                   // ₹239.00 / 1g (₹2,39,000 / 1kg)
+  silver925: Math.round(239.00 * 0.925 * 100) / 100                   // ₹221.08 / 1g (₹2,21,075 / 1kg)
 };
 
 export let liveRates = {
@@ -45,9 +45,6 @@ export let liveRates = {
 };
 
 let oneSecInterval = null;
-let apiSyncInterval = null;
-let tickCount = 0;
-
 export async function initRates() {
   if (typeof document !== 'undefined') {
     renderRateSection();
@@ -60,8 +57,9 @@ export async function initRates() {
   // Start 1-second high-frequency streaming tick engine (like live stocks)
   startSecondBySecondTicks();
 
-  // Background API sync every 30 seconds
-  apiSyncInterval = setInterval(fetchLiveSpotFeed, 30000);
+  // Fast background API sync every 10 seconds
+  if (apiSyncInterval) clearInterval(apiSyncInterval);
+  apiSyncInterval = setInterval(fetchLiveSpotFeed, 10000);
 
   // Manual refresh button
   if (typeof document !== 'undefined') {

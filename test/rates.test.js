@@ -94,7 +94,7 @@ test('6. Purity Derivatives: 22K (916) and 18K (750) mathematical accuracy witho
   const result = calculateSriSaiRates({
     goldRate: 156843, // Base CapsGold (₹15,684.30/g)
     goldUnit: 'per_10g',
-    silverRate: 235241, // Base CapsGold (₹2,35,241/kg)
+    silverRate: 236500, // Base CapsGold (₹2,36,500/kg)
     silverUnit: 'per_kg',
     goldAdjustment: 400,
     silverAdjustment: 25
@@ -112,13 +112,13 @@ test('6. Purity Derivatives: 22K (916) and 18K (750) mathematical accuracy witho
   const expected18k_10g = Math.round(157243 * 0.75 * 100) / 100;
   assert.equal(result.ourRates.gold18k_10g, expected18k_10g);
 
-  // Silver 999: 235241 + 2500 = 237741 / kg
-  assert.equal(result.ourRates.silver999_1kg, 237741);
-  assert.equal(result.ourRates.silver999_10g, 2377.41);
-  assert.equal(result.ourRates.silver999_1g, 237.74);
+  // Silver 999: 236500 + 2500 = 239000 / kg (₹239.00 / g)
+  assert.equal(result.ourRates.silver999_1kg, 239000);
+  assert.equal(result.ourRates.silver999_10g, 2390.00);
+  assert.equal(result.ourRates.silver999_1g, 239.00);
 
-  // Silver 925 (92.5%): 237741 * 0.925 = 219910.43
-  assert.equal(result.ourRates.silver925_1kg, 219910.43);
+  // Silver 925 (92.5%): 239000 * 0.925 = 221075
+  assert.equal(result.ourRates.silver925_1kg, 221075);
 });
 
 test('7. Service Health Check & Dynamic Live Spot Stream Output', async () => {
