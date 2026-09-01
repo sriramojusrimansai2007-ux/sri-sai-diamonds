@@ -88,16 +88,15 @@ function startSecondBySecondTicks() {
     tickCount++;
     liveRates.lastUpdated = new Date();
 
-    // Generate natural stock market micro-tick (every 1 second)
-    // 70% of ticks have micro-fluctuation, 30% stay flat
+    // Natural mean-reverting micro-tick around Secunderabad benchmark
     if (Math.random() > 0.3) {
-      // Gold micro-delta between -₹0.80 and +₹0.90
-      const goldDelta = (Math.random() * 1.70 - 0.80);
-      const newGold24k = Math.max(BASE_RATES.gold24k * 0.97, Math.min(BASE_RATES.gold24k * 1.03, liveRates.gold24k_1g + goldDelta));
+      const goldOffset = (BASE_RATES.gold24k - liveRates.gold24k_1g) * 0.15;
+      const goldDelta = (Math.random() * 0.60 - 0.30) + goldOffset;
+      const newGold24k = liveRates.gold24k_1g + goldDelta;
 
-      // Silver micro-delta between -₹0.10 and +₹0.12
-      const silverDelta = (Math.random() * 0.22 - 0.10);
-      const newSilver999 = Math.max(BASE_RATES.silver999 * 0.97, Math.min(BASE_RATES.silver999 * 1.03, liveRates.silver999_1g + silverDelta));
+      const silverOffset = (BASE_RATES.silver999 - liveRates.silver999_1g) * 0.15;
+      const silverDelta = (Math.random() * 0.08 - 0.04) + silverOffset;
+      const newSilver999 = liveRates.silver999_1g + silverDelta;
 
       liveRates.prev_gold24k_1g = liveRates.gold24k_1g;
       liveRates.prev_silver999_1g = liveRates.silver999_1g;
@@ -110,10 +109,10 @@ function startSecondBySecondTicks() {
       liveRates.silver925_1g = Math.round((liveRates.silver999_1g * 0.925) * 100) / 100;
 
       // Update day change calculations
-      liveRates.dayChangeGold = Math.round((liveRates.gold24k_1g - BASE_RATES.gold24k) * 100) / 100;
+      liveRates.dayChangeGold = Math.round((liveRates.gold24k_1g - (BASE_RATES.gold24k - 45.00)) * 100) / 100;
       liveRates.dayChangePercentGold = Math.round((liveRates.dayChangeGold / BASE_RATES.gold24k * 100) * 100) / 100;
 
-      liveRates.dayChangeSilver = Math.round((liveRates.silver999_1g - BASE_RATES.silver999) * 100) / 100;
+      liveRates.dayChangeSilver = Math.round((liveRates.silver999_1g - (BASE_RATES.silver999 - 1.60)) * 100) / 100;
       liveRates.dayChangePercentSilver = Math.round((liveRates.dayChangeSilver / BASE_RATES.silver999 * 100) * 100) / 100;
     }
 
@@ -126,50 +125,10 @@ function startSecondBySecondTicks() {
  */
 export async function fetchLiveSpotFeed(manualTrigger = false) {
   try {
-    const [goldRes, silverRes, fxRes] = await Promise.allSettled([
+    const [goldRes, silverRes] = await Promise.allSettled([
       fetch('https://api.gold-api.com/price/XAU'),
-      fetch('https://api.gold-api.com/price/XAG'),
-      fetch('https://open.er-api.com/v6/latest/USD')
+      fetch('https://api.gold-api.com/price/XAG')
     ]);
-
-    let fxRate = 95.58;
-    if (fxRes.status === 'fulfilled' && fxRes.value.ok) {
-      const fxData = await fxRes.value.json();
-      if (fxData && fxData.rates && fxData.rates.INR) fxRate = fxData.rates.INR;
-    }
-
-    let goldPriceOz = 4431.20;
-    if (goldRes.status === 'fulfilled' && goldRes.value.ok) {
-      const data = await goldRes.value.json();
-      if (data && data.price) goldPriceOz = data.price;
-    }
-
-    let silverPriceOz = 66.34;
-    if (silverRes.status === 'fulfilled' && silverRes.value.ok) {
-      const data = await silverRes.value.json();
-      if (data && data.price) silverPriceOz = data.price;
-    }
-
-    // Scale movements relative to spot benchmark with 3% GST included
-    if (goldPriceOz > 0) {
-      const ratio = Math.max(0.97, Math.min(1.03, goldPriceOz / 4431.20));
-      BASE_EX_GST.gold24k = Math.round(15500 * ratio);
-      BASE_EX_GST.gold22k = Math.round(BASE_EX_GST.gold24k * (22 / 24) * 100) / 100;
-      BASE_EX_GST.gold18k = Math.round(BASE_EX_GST.gold24k * 0.750 * 100) / 100;
-
-      BASE_RATES.gold24k = Math.round(BASE_EX_GST.gold24k * GST_FACTOR * 100) / 100;
-      BASE_RATES.gold22k = Math.round(BASE_RATES.gold24k * (22 / 24) * 100) / 100;
-      BASE_RATES.gold18k = Math.round(BASE_RATES.gold24k * 0.750 * 100) / 100;
-    }
-
-    if (silverPriceOz > 0) {
-      const ratio = Math.max(0.97, Math.min(1.03, silverPriceOz / 66.34));
-      BASE_EX_GST.silver999 = Math.round(260 * ratio * 100) / 100;
-      BASE_EX_GST.silver925 = Math.round(BASE_EX_GST.silver999 * 0.925 * 100) / 100;
-
-      BASE_RATES.silver999 = Math.round(BASE_EX_GST.silver999 * GST_FACTOR * 100) / 100;
-      BASE_RATES.silver925 = Math.round(BASE_RATES.silver999 * 0.925 * 100) / 100;
-    }
 
     liveRates.gold24k_1g = BASE_RATES.gold24k;
     liveRates.gold22k_1g = BASE_RATES.gold22k;
@@ -212,7 +171,6 @@ function updateDOM(isTick = false) {
   setTextSafe('#cardRate24k_10g_main', `₹${formatInr(Math.round(g24 * 10))}`, goldDirection);
   setTextSafe('#cardRate24k_1g', `₹${formatInr(g24)}`);
   setTextSafe('#cardRate22k_10g_main', `₹${formatInr(Math.round(g22 * 10))}`, goldDirection);
-  setTextSafe('#cardRate22k_8g', `₹${formatInr(Math.round(g22 * 8))}`);
   setTextSafe('#cardRate22k_1g', `₹${formatInr(g22)}`);
   setTextSafe('#cardRate18k_10g_main', `₹${formatInr(Math.round(g18 * 10))}`, goldDirection);
   setTextSafe('#cardRate18k_1g', `₹${formatInr(g18)}`);
@@ -228,19 +186,16 @@ function updateDOM(isTick = false) {
 
   // 3. Multi-Weight Rate Table
   setTextSafe('#tbl24k_1g', `₹${formatInr(g24)}`);
-  setTextSafe('#tbl24k_8g', `₹${formatInr(Math.round(g24 * 8))}`);
   setTextSafe('#tbl24k_10g', `₹${formatInr(Math.round(g24 * 10))}`);
   setTextSafe('#tbl24k_100g', `₹${formatInr(Math.round(g24 * 100))}`);
   setTextSafe('#tbl24k_1kg', `₹${formatInr(Math.round(g24 * 1000))}`);
 
   setTextSafe('#tbl22k_1g', `₹${formatInr(g22)}`);
-  setTextSafe('#tbl22k_8g', `₹${formatInr(Math.round(g22 * 8))}`);
   setTextSafe('#tbl22k_10g', `₹${formatInr(Math.round(g22 * 10))}`);
   setTextSafe('#tbl22k_100g', `₹${formatInr(Math.round(g22 * 100))}`);
   setTextSafe('#tbl22k_1kg', `₹${formatInr(Math.round(g22 * 1000))}`);
 
   setTextSafe('#tbl18k_1g', `₹${formatInr(g18)}`);
-  setTextSafe('#tbl18k_8g', `₹${formatInr(Math.round(g18 * 8))}`);
   setTextSafe('#tbl18k_10g', `₹${formatInr(Math.round(g18 * 10))}`);
   setTextSafe('#tbl18k_100g', `₹${formatInr(Math.round(g18 * 100))}`);
   setTextSafe('#tbl18k_1kg', `₹${formatInr(Math.round(g18 * 1000))}`);
@@ -407,8 +362,6 @@ function recalcLivePrice() {
   let qtyGrams = rawQty;
   if (unit === 'tola') {
     qtyGrams = rawQty * 11.6638;
-  } else if (unit === 'pavan') {
-    qtyGrams = rawQty * 8.0;
   } else if (unit === 'kg') {
     qtyGrams = rawQty * 1000.0;
   }

@@ -288,30 +288,39 @@
   text-transform: uppercase;
   color: var(--ink);
   border: 1px solid var(--hairline);
-  padding: 9px 16px;
+  padding: 10px 16px;
   border-radius: var(--radius-sm);
   width: 100%;
   text-align: center;
-  transition: all .3s;
+  transition: all .3s var(--ease);
   background: var(--ivory);
   font-weight: 500;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .piece__add:hover {
   background: var(--ink);
   color: var(--ivory);
   border-color: var(--ink);
 }
+.piece__add.added {
+  background: #065F46 !important;
+  color: #fff !important;
+  border-color: #065F46 !important;
+  box-shadow: 0 4px 14px rgba(6, 95, 70, 0.3);
+}
 
 /* ---------- Drawer (Quote List) ---------- */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(19, 16, 11, 0.65);
-  backdrop-filter: blur(4px);
+  background: rgba(19, 16, 11, 0.7);
+  backdrop-filter: blur(6px);
   opacity: 0;
   pointer-events: none;
-  transition: .4s;
-  z-index: 190;
+  transition: opacity .35s ease;
+  z-index: 9998;
 }
 .overlay.open { opacity: 1; pointer-events: auto; }
 .drawer {
@@ -319,14 +328,16 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(460px, 100%);
+  width: min(440px, 100%);
+  height: 100%;
+  height: 100dvh;
   background: #fff;
-  z-index: 200;
+  z-index: 9999;
   transform: translateX(100%);
-  transition: transform .45s var(--ease);
+  transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  box-shadow: -10px 0 50px rgba(0, 0, 0, 0.25);
+  box-shadow: -10px 0 50px rgba(0, 0, 0, 0.3);
 }
 .drawer.open { transform: none; }
 .drawer__head {
@@ -452,25 +463,106 @@
   cursor: pointer;
 }
 
-/* ---------- Toast ---------- */
+/* ---------- Toast / Popup Notification ---------- */
 .toast {
   position: fixed;
-  bottom: 30px;
+  bottom: max(24px, env(safe-area-inset-bottom, 24px));
   left: 50%;
-  transform: translate(-50%, 90px);
+  transform: translate(-50%, 140px);
   background: #0E0C09;
   color: var(--ivory);
-  padding: 14px 28px;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  z-index: 300;
-  transition: transform .45s var(--ease);
+  padding: 12px 20px;
+  font-size: 12px;
+  z-index: 10000;
+  transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1), opacity .3s;
   border: 1px solid var(--gold);
-  border-radius: 30px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
-  max-width: 90vw;
-  text-align: center;
+  border-radius: 40px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
+  max-width: min(500px, 92vw);
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  pointer-events: none;
+  opacity: 0;
 }
-.toast.show { transform: translate(-50%, 0); }
+.toast.show {
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+  opacity: 1;
+}
+.toast__text {
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--ivory);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.toast__action-btn {
+  background: var(--gold-grad);
+  color: #0E0C09;
+  border: none;
+  padding: 6px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.toast__action-btn:hover {
+  background: #fff;
+  transform: scale(1.04);
+}
+
+/* ---------- Floating Mobile Quote Button (FAB) ---------- */
+.mobile-quote-fab {
+  display: none;
+  position: fixed;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  right: 18px;
+  z-index: 990;
+  background: #0E0C09;
+  color: var(--ivory);
+  border: 1.5px solid var(--gold);
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  align-items: center;
+  gap: 8px;
+  transition: transform .3s var(--ease), box-shadow .3s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-quote-fab.show {
+  display: inline-flex;
+  animation: pop-fab 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes pop-fab {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.mobile-quote-fab:active {
+  transform: scale(0.95);
+}
+.mobile-quote-fab__count {
+  background: var(--gold-grad);
+  color: #0E0C09;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
 

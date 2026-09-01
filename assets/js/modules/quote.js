@@ -6,29 +6,60 @@ import { toast } from './ui.js';
 let list = [];   // array of product ids
 
 export function initQuote() {
-  $('#quoteBtn').addEventListener('click', () => toggle(true));
-  $('#closeDrawer').addEventListener('click', () => toggle(false));
-  $('#overlay').addEventListener('click', () => toggle(false));
+  const quoteBtn = $('#quoteBtn');
+  if (quoteBtn) quoteBtn.addEventListener('click', () => toggle(true));
+  
+  const mobileFab = $('#mobileQuoteFab');
+  if (mobileFab) mobileFab.addEventListener('click', () => toggle(true));
+
+  const closeBtn = $('#closeDrawer');
+  if (closeBtn) closeBtn.addEventListener('click', () => toggle(false));
+
+  const overlay = $('#overlay');
+  if (overlay) overlay.addEventListener('click', () => toggle(false));
+
   addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
-  $('#sendQuoteBtn').addEventListener('click', sendOnWhatsApp);
+  
+  const sendBtn = $('#sendQuoteBtn');
+  if (sendBtn) sendBtn.addEventListener('click', sendOnWhatsApp);
 }
 
 export function toggle(open) {
-  $('#drawer').classList.toggle('open', open);
-  $('#overlay').classList.toggle('open', open);
+  const drawer = $('#drawer');
+  const overlay = $('#overlay');
+  if (drawer) drawer.classList.toggle('open', open);
+  if (overlay) overlay.classList.toggle('open', open);
   document.body.style.overflow = open ? 'hidden' : '';
   if (open) render();
 }
 
 export function add(p) {
-  if (list.includes(p.id)) { toast('Already in your quote list'); return; }
+  if (list.includes(p.id)) {
+    toast(`"${p.name}" is already in your quote list`, {
+      actionText: 'View List →',
+      onAction: () => toggle(true)
+    });
+    return;
+  }
   list.push(p.id);
   updateCount();
-  toast(`${p.name} added to quote list`);
+  toast(`✓ "${p.name}" added to quote list!`, {
+    actionText: `View List (${list.length}) →`,
+    onAction: () => toggle(true)
+  });
 }
 
 function updateCount() {
-  $('#quoteCount').textContent = list.length;
+  const topCount = $('#quoteCount');
+  if (topCount) topCount.textContent = list.length;
+
+  const mobCount = $('#mobileQuoteCount');
+  if (mobCount) mobCount.textContent = list.length;
+
+  const mobFab = $('#mobileQuoteFab');
+  if (mobFab) {
+    mobFab.classList.toggle('show', list.length > 0);
+  }
 }
 
 function render() {

@@ -202,8 +202,8 @@
           </div>
           <div class="trend-badge trend-badge--up" id="trendGold22k">▲ +₹412.50 (+0.28%)</div>
           <ul class="rate-card__breakdown">
-            <li><span>8 Grams (1 Pavan)</span> <strong id="cardRate22k_8g">₹1,17,080</strong></li>
             <li><span>1 Gram Rate</span> <strong id="cardRate22k_1g">₹14,635.00</strong></li>
+            <li><span>Purity Standard</span> <strong>91.60% (BIS 916)</strong></li>
             <li><span>GST Status</span> <strong style="color:#065F46">3% GST Included</strong></li>
           </ul>
         </div>
@@ -265,7 +265,6 @@
                 <tr>
                   <th>Metal &amp; Purity</th>
                   <th>1 Gram</th>
-                  <th>8 Grams (Pavan)</th>
                   <th>10 Grams (Tola)</th>
                   <th>100 Grams</th>
                   <th>1 Kilogram</th>
@@ -275,7 +274,6 @@
                 <tr>
                   <td><strong>24K Gold (999.9)</strong></td>
                   <td id="tbl24k_1g">₹15,965</td>
-                  <td id="tbl24k_8g">₹1,27,720</td>
                   <td id="tbl24k_10g">₹1,59,650</td>
                   <td id="tbl24k_100g">₹15,96,500</td>
                   <td id="tbl24k_1kg">₹1,59,65,000</td>
@@ -283,7 +281,6 @@
                 <tr>
                   <td><strong>22K Gold (916)</strong></td>
                   <td id="tbl22k_1g">₹14,635</td>
-                  <td id="tbl22k_8g">₹1,17,080</td>
                   <td id="tbl22k_10g">₹1,46,350</td>
                   <td id="tbl22k_100g">₹14,63,500</td>
                   <td id="tbl22k_1kg">₹1,46,35,000</td>
@@ -291,7 +288,6 @@
                 <tr>
                   <td><strong>18K Gold (750)</strong></td>
                   <td id="tbl18k_1g">₹11,974</td>
-                  <td id="tbl18k_8g">₹95,790</td>
                   <td id="tbl18k_10g">₹1,19,738</td>
                   <td id="tbl18k_100g">₹11,97,375</td>
                   <td id="tbl18k_1kg">₹1,19,73,750</td>
@@ -299,7 +295,6 @@
                 <tr>
                   <td><strong>999 Fine Silver</strong></td>
                   <td id="tblSilver999_1g">₹267.80</td>
-                  <td>—</td>
                   <td id="tblSilver999_10g">₹2,678.00</td>
                   <td id="tblSilver999_100g">₹26,780</td>
                   <td id="tblSilver999_1kg">₹2,67,800</td>
@@ -307,7 +302,6 @@
                 <tr>
                   <td><strong>925 Sterling Silver</strong></td>
                   <td id="tblSilver925_1g">₹247.72</td>
-                  <td>—</td>
                   <td id="tblSilver925_10g">₹2,477.20</td>
                   <td id="tblSilver925_100g">₹24,772</td>
                   <td id="tblSilver925_1kg">₹2,47,720</td>
@@ -347,7 +341,6 @@
               <label for="calcUnit">Unit</label>
               <select id="calcUnit">
                 <option value="grams" selected>Grams (g)</option>
-                <option value="pavan">Pavan / Sovereign (8g)</option>
                 <option value="tola">Tola (11.66g)</option>
                 <option value="kg">Kilogram (kg)</option>
               </select>
@@ -359,7 +352,6 @@
             <div class="calc-presets">
               <button class="calc-preset-chip" data-calc-preset="1">1g</button>
               <button class="calc-preset-chip" data-calc-preset="4">4g</button>
-              <button class="calc-preset-chip" data-calc-preset="8">8g (1 Pavan)</button>
               <button class="calc-preset-chip active" data-calc-preset="10">10g (1 Tola)</button>
               <button class="calc-preset-chip" data-calc-preset="20">20g</button>
               <button class="calc-preset-chip" data-calc-preset="50">50g</button>
@@ -620,6 +612,12 @@
     <button class="lightbox__x" id="lbClose" aria-label="Close image">×</button>
     <img id="lbImg" src="" alt="Enlarged product view">
   </div>
+
+  <!-- Floating Mobile Quote Pill / FAB -->
+  <button class="mobile-quote-fab" id="mobileQuoteFab" aria-label="Open Quote List">
+    <span>💬 Quote List</span>
+    <span class="mobile-quote-fab__count" id="mobileQuoteCount">0</span>
+  </button>
 
   <div class="toast" id="toastEl" role="status" aria-live="polite"></div>
 

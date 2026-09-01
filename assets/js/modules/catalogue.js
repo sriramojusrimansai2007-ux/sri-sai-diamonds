@@ -134,7 +134,16 @@ function renderGrid(onAdd, onZoom) {
     const footRow = el('div', 'piece__foot');
     const add = el('button', 'piece__add', 'Add to Quote List +');
     add.setAttribute('aria-label', `Add ${p.name} to quote list`);
-    add.addEventListener('click', () => onAdd && onAdd(p));
+    add.addEventListener('click', (e) => {
+      e.stopPropagation();
+      add.classList.add('added');
+      add.textContent = '✓ Added to Quote List';
+      setTimeout(() => {
+        add.classList.remove('added');
+        add.textContent = 'Add to Quote List +';
+      }, 2000);
+      if (onAdd) onAdd(p);
+    });
     footRow.appendChild(add);
 
     body.appendChild(footRow);

@@ -24,6 +24,6 @@ export const CONFIG = {
     gold24k: '₹1,59,650 /10g',
     gold22k: '₹1,46,350 /10g',
     silver999: '₹2,67,800 /kg',
-    note: "Live Spot Bullion (3% GST Included · Live 1-Second Updates)"
+    note: "Live Spot Bullion (3% GST Included · Live Updates)"
   }
 };

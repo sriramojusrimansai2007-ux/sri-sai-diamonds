@@ -1,12 +1,31 @@
 import { $ } from './dom.js';
 
 let toastTimer;
-export function toast(msg) {
+export function toast(msg, action = null) {
   const t = $('#toastEl');
-  t.textContent = msg;                 // textContent = XSS-safe
+  if (!t) return;
+
+  t.innerHTML = '';
+  const textSpan = document.createElement('span');
+  textSpan.className = 'toast__text';
+  textSpan.textContent = msg;
+  t.appendChild(textSpan);
+
+  if (action && action.actionText && action.onAction) {
+    const btn = document.createElement('button');
+    btn.className = 'toast__action-btn';
+    btn.textContent = action.actionText;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      action.onAction();
+      t.classList.remove('show');
+    });
+    t.appendChild(btn);
+  }
+
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3800);
 }
 
 export function initReveal() {
