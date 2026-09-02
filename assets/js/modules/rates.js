@@ -48,9 +48,9 @@ export async function initRates() {
   // Start 1-second high-frequency streaming tick engine (like live stocks)
   startSecondBySecondTicks();
 
-  // Fast background API sync every 10 seconds
+  // Fast background API sync every 3 seconds for direct live CapsGold stream
   if (apiSyncInterval) clearInterval(apiSyncInterval);
-  apiSyncInterval = setInterval(fetchLiveSpotFeed, 10000);
+  apiSyncInterval = setInterval(fetchLiveSpotFeed, 3000);
 
   // Manual refresh button
   if (typeof document !== 'undefined') {

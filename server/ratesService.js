@@ -243,7 +243,61 @@ export function calculateSriSaiRates({
 }
 
 /**
- * Fetches rates from official CapsGold API, custom feed URL, or calibrated Secunderabad baseline.
+ * Fetches real-time live rates directly from official CapsGold broadcast streaming server
+ */
+export async function fetchCapsGoldBroadcastFeed() {
+  const url = 'http://bcast.capsgold.net:4767/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/capsgold';
+  const text = await fetchHttpText(url);
+  const lines = text.split('\n').filter(l => l.trim().length > 0);
+  
+  let gold24k_1g = null;
+  let silver999_1kg = null;
+  let goldHigh = null;
+  let goldLow = null;
+  let silverHigh = null;
+  let silverLow = null;
+
+  for (const line of lines) {
+    const parts = line.split('\t').map(p => p.trim()).filter(Boolean);
+    if (parts.length >= 4) {
+      const name = parts[1].toUpperCase();
+      // Secunderabad / Abids 999 Gold
+      if (name.includes('GOLD') && (name.includes('SECUNDERABAD') || name.includes('ABIDS'))) {
+        const rate = parseFloat(parts[3]) || parseFloat(parts[2]);
+        if (rate > 1000) {
+          gold24k_1g = rate;
+          goldHigh = parseFloat(parts[4]) || rate;
+          goldLow = parseFloat(parts[5]) || rate;
+        }
+      }
+      // Secunderabad 999 Silver
+      if (name.includes('SILVER') && name.includes('SECUNDERABAD')) {
+        const rate = parseFloat(parts[3]) || parseFloat(parts[2]);
+        if (rate > 1000) {
+          silver999_1kg = rate;
+          silverHigh = parseFloat(parts[4]) || rate;
+          silverLow = parseFloat(parts[5]) || rate;
+        }
+      }
+    }
+  }
+
+  if (gold24k_1g && silver999_1kg) {
+    return {
+      gold24k_1g,
+      gold24k_10g: Math.round(gold24k_1g * 10 * 100) / 100,
+      silver999_1kg,
+      goldHigh,
+      goldLow,
+      silverHigh,
+      silverLow
+    };
+  }
+  throw new Error('Unable to parse CapsGold broadcast lines');
+}
+
+/**
+ * Fetches rates from official CapsGold live broadcast feed, custom URL, or live spot exchange.
  */
 export async function getLiveBullionRates(options = {}) {
   const apiKey = options.apiKey || process.env.CAPSGOLD_API_KEY || DEFAULT_CONFIG.CAPSGOLD_API_KEY;
@@ -253,7 +307,42 @@ export async function getLiveBullionRates(options = {}) {
 
   const timestamp = new Date().toISOString();
 
-  // 1. If custom / official CapsGold API URL is configured in environment
+  // 1. Direct Live Real-Time Feed from CapsGold Official Broadcast Server
+  try {
+    const directFeed = await fetchCapsGoldBroadcastFeed();
+    if (directFeed && directFeed.gold24k_10g > 0 && directFeed.silver999_1kg > 0) {
+      const rates = calculateSriSaiRates({
+        goldRate: directFeed.gold24k_10g,
+        goldUnit: 'per_10g',
+        silverRate: directFeed.silver999_1kg,
+        silverUnit: 'per_kg',
+        goldAdjustment,
+        silverAdjustment
+      });
+
+      return {
+        success: true,
+        isLive: true,
+        source: 'CapsGold Live Broadcast Feed (Secunderabad-Abids 999)',
+        status: 'Connected directly to CapsGold Live Stream',
+        lastUpdated: timestamp,
+        capsGoldLive: {
+          gold_1g: directFeed.gold24k_1g,
+          gold_10g: directFeed.gold24k_10g,
+          silver_1kg: directFeed.silver999_1kg,
+          goldHigh: directFeed.goldHigh,
+          goldLow: directFeed.goldLow,
+          silverHigh: directFeed.silverHigh,
+          silverLow: directFeed.silverLow
+        },
+        ...rates
+      };
+    }
+  } catch (err) {
+    console.warn(`[Bullion Service] CapsGold direct broadcast returned: ${err.message}. Trying backup feeds.`);
+  }
+
+  // 2. If custom / official CapsGold API URL is configured in environment
   if (apiUrl) {
     try {
       const response = await fetchCustomBullionApi(apiUrl, apiKey);
@@ -282,11 +371,55 @@ export async function getLiveBullionRates(options = {}) {
         }
       }
     } catch (err) {
-      console.warn(`[Bullion Service] Custom feed returned: ${err.message}. Using calibrated benchmark.`);
+      console.warn(`[Bullion Service] Custom feed returned: ${err.message}. Using live spot exchange.`);
     }
   }
 
-  // 2. Exact Calibrated CapsGold Secunderabad Benchmark + Business Adjustments
+  // 3. Backup: Fetch live real-time precious metals market spot prices (XAU / XAG in USD) & FX rates
+  try {
+    const [goldRes, silverRes, fxRes] = await Promise.allSettled([
+      fetchHttpJson('https://api.gold-api.com/price/XAU'),
+      fetchHttpJson('https://api.gold-api.com/price/XAG'),
+      fetchHttpJson('https://open.er-api.com/v6/latest/USD')
+    ]);
+
+    if (goldRes.status === 'fulfilled' && goldRes.value && goldRes.value.price &&
+        silverRes.status === 'fulfilled' && silverRes.value && silverRes.value.price) {
+      
+      const goldPriceUsd = Number(goldRes.value.price);
+      const silverPriceUsd = Number(silverRes.value.price);
+      const usdInr = (fxRes.status === 'fulfilled' && fxRes.value && fxRes.value.rates && fxRes.value.rates.INR) ? Number(fxRes.value.rates.INR) : 95.0;
+
+      const ozToGram = 31.1034768;
+      const GOLD_PREMIUM_MULTIPLIER = 1.1715; 
+      const SILVER_PREMIUM_MULTIPLIER = 1.1810;
+
+      const rawGoldPerGram = (goldPriceUsd * usdInr / ozToGram) * GOLD_PREMIUM_MULTIPLIER;
+      const rawSilverPerKg = (silverPriceUsd * usdInr / ozToGram) * SILVER_PREMIUM_MULTIPLIER * 1000;
+
+      const rates = calculateSriSaiRates({
+        goldRate: Math.round(rawGoldPerGram * 100) / 10,
+        goldUnit: 'per_10g',
+        silverRate: Math.round(rawSilverPerKg * 100) / 100,
+        silverUnit: 'per_kg',
+        goldAdjustment,
+        silverAdjustment
+      });
+
+      return {
+        success: true,
+        isLive: true,
+        source: 'Live Spot Bullion Stream (Secunderabad Benchmark)',
+        status: 'Live Real-Time Market Session Active',
+        lastUpdated: timestamp,
+        ...rates
+      };
+    }
+  } catch (err) {
+    console.warn(`[Bullion Service] Live market stream error: ${err.message}. Using baseline.`);
+  }
+
+  // 4. Fallback Benchmark Mode if external networks are temporarily offline
   const rates = calculateSriSaiRates({
     goldRate: DEFAULT_CONFIG.FALLBACK_CAPSGOLD_GOLD_24K_PER_10G,
     goldUnit: 'per_10g',
@@ -304,6 +437,48 @@ export async function getLiveBullionRates(options = {}) {
     lastUpdated: timestamp,
     ...rates
   };
+}
+
+/**
+ * Helper to fetch plain text from URL over HTTP/HTTPS
+ */
+function fetchHttpText(url, headers = {}) {
+  return new Promise((resolve, reject) => {
+    try {
+      const parsedUrl = new URL(url);
+      const transport = parsedUrl.protocol === 'https:' ? https : http;
+
+      const req = transport.request(parsedUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': '*/*',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+          ...headers
+        },
+        timeout: 4000
+      }, (res) => {
+        let rawData = '';
+        res.on('data', chunk => { rawData += chunk; });
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(rawData);
+          } else {
+            reject(new Error(`Endpoint returned HTTP ${res.statusCode}`));
+          }
+        });
+      });
+
+      req.on('error', reject);
+      req.on('timeout', () => {
+        req.destroy();
+        reject(new Error('Connection timed out'));
+      });
+
+      req.end();
+    } catch (e) {
+      reject(e);
+    }
+  });
 }
 
 /**
