@@ -99,8 +99,14 @@ const server = http.createServer(async (req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
+      const notFoundPath = path.join(__dirname, '404.html');
+      if (fs.existsSync(notFoundPath)) {
+        res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+        fs.createReadStream(notFoundPath).pipe(res);
+      } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
+      }
       return;
     }
 

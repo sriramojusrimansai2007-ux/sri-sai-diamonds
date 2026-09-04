@@ -20,7 +20,7 @@ export const FESTIVALS = [
       '🌾 మకర సంక్రాంతి మరియు భోగి పండుగ శుభాకాంక్షలు! 🌾',
       'Happy Makar Sankranti & Pongal from Sri Sai Diamonds & Tools! May the harvest sun bring golden prosperity, good health and joy to your family!',
       '🪁 Celebrate auspicious beginnings with 100% BIS 916 Hallmarked Gold Jewellery & 999 Fine Silver Pooja Articles! 🪁',
-      '✨ Special Festive Making Charges & Honest Calibrated Weighing at Bellampalli Boutique! ✨'
+      '✨ Special Festive Making Charges & Honest Calibrated Weighing at Bellampalli Store! ✨'
     ]
   },
   {
@@ -178,7 +178,7 @@ export const FESTIVALS = [
       '🦚 శ్రీ కృష్ణాష్టమి మరియు గోకులాష్టమి పర్వదిన శుభాకాంక్షలు! 🦚',
       'Jai Shri Krishna! May Lord Krishna fill your home with love, joy, auspiciousness & golden prosperity on Janmashtami from Sri Sai Diamonds & Tools!',
       '🧈 Auspicious 999 Pure Silver Balakrishna Idols, Silver Flutes, Oonjal (Cradle) & Silver Pooja Utensils in Stock! 🧈',
-      '✨ 100% BIS 916 Hallmarked Gold • Certified Natural Diamonds • Visit Bellampalli Boutique! ✨'
+      '✨ 100% BIS 916 Hallmarked Gold • Certified Natural Diamonds • Visit Bellampalli Store! ✨'
     ]
   },
   {
@@ -286,7 +286,7 @@ export const DEFAULT_AUSPICIOUS_WISHES = {
     'Warm Greetings from Sri Sai Diamonds & Tools! May health, peace, prosperity and sparkling moments fill your household!',
     '◈ 100% BIS 916 Hallmarked Gold • 999 Fine Silver Bullion • Certified Natural Diamonds • Honest Weight Calibration ◈',
     '⚙️ Master Jeweller Precision Tools, Diamond Dressers & Goldsmith Equipment ⚙️',
-    '💬 Live Rates Locking & Direct Boutique Enquiry on WhatsApp: +91 94402 07558 💬'
+    '💬 Live Rates Locking & Direct Store Enquiry on WhatsApp: +91 94402 07558 💬'
   ]
 };
 
@@ -340,3 +340,4 @@ export function initFestivalMarquee() {
     track.innerHTML = chunk + chunk + chunk;
   }
 }
+
