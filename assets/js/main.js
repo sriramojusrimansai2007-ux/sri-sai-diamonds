@@ -7,6 +7,7 @@ import { initQuote, add as addToQuote } from './modules/quote.js';
 import { initEnquiry } from './modules/enquiry.js';
 import { initGallery } from './modules/gallery.js';
 import { initRates } from './modules/rates.js';
+import { initFestivalMarquee } from './modules/festivals.js';
 
 /* ---- Marquee ---- */
 initMarquee([
@@ -117,6 +118,7 @@ try {
   initQuote();
   initEnquiry();
   initRates();
+  initFestivalMarquee();
 } catch (err) {
   console.error('Initialization error:', err);
 }

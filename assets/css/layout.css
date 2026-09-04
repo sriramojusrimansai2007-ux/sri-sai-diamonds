@@ -270,6 +270,106 @@
   100% { transform: translateX(-50%); }
 }
 
+/* =========================================================
+   Festive Wishes Marquee Ticker
+   ========================================================= */
+.festive-marquee {
+  background: linear-gradient(90deg, #181109 0%, #291b0d 25%, #181109 50%, #291b0d 75%, #181109 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.45);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  z-index: 40;
+}
+.festive-marquee__inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 42px;
+}
+.festive-marquee__badge-wrap {
+  flex-shrink: 0;
+  z-index: 2;
+  padding: 0 16px;
+  background: linear-gradient(90deg, #181109 85%, transparent 100%);
+  display: flex;
+  align-items: center;
+}
+.festive-marquee__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+  color: #0c0e14;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  white-space: nowrap;
+}
+.festive-marquee__content {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.festive-marquee__track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: festive-scroll 45s linear infinite;
+  font-family: 'Jost', -apple-system, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #faf7f2;
+  will-change: transform;
+}
+.festive-marquee:hover .festive-marquee__track,
+.festive-marquee:focus-within .festive-marquee__track {
+  animation-play-state: paused;
+}
+.festive-marquee__track .festive-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+.festive-marquee__track .festive-sep {
+  color: #f3ba2f;
+  font-style: normal;
+  font-size: 10px;
+  opacity: 0.85;
+}
+@keyframes festive-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 640px) {
+  .festive-marquee__inner {
+    min-height: 38px;
+  }
+  .festive-marquee__badge-wrap {
+    padding: 0 8px;
+  }
+  .festive-marquee__badge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .festive-marquee__track {
+    font-size: 12.5px;
+    animation-duration: 35s;
+  }
+}
+
 /* ---------- Live Bullion Rates Section ---------- */
 .rates-sec {
   background: var(--ivory);

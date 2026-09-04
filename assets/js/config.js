@@ -25,5 +25,9 @@ export const CONFIG = {
     gold22k: '₹1,44,139 /10g',
     silver999: '₹2,39,000 /kg',
     note: "Live Spot Bullion (3% GST Included · Live Updates)"
-  }
+  },
+
+  // Festival Wishes Mode: 'auto' (automatic calendar date detection)
+  // or set manually to test: 'janmashtami', 'ganesh_chaturthi', 'diwali', 'dussehra', 'ugadi', 'sankranti', 'akshaya_tritiya', etc.
+  festivalMode: 'auto'
 };

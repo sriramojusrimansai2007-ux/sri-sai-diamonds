@@ -256,6 +256,8 @@ export async function fetchCapsGoldBroadcastFeed() {
   let goldLow = null;
   let silverHigh = null;
   let silverLow = null;
+  let spotSilverUsd = null;
+  let spotRupeeInr = null;
 
   for (const line of lines) {
     const parts = line.split('\t').map(p => p.trim()).filter(Boolean);
@@ -264,7 +266,7 @@ export async function fetchCapsGoldBroadcastFeed() {
       // Secunderabad / Abids 999 Gold
       if (name.includes('GOLD') && (name.includes('SECUNDERABAD') || name.includes('ABIDS'))) {
         const rate = parseFloat(parts[3]) || parseFloat(parts[2]);
-        if (rate > 1000) {
+        if (rate > 5000) { // Gold per gram is > 5,000
           gold24k_1g = rate;
           goldHigh = parseFloat(parts[4]) || rate;
           goldLow = parseFloat(parts[5]) || rate;
@@ -273,13 +275,28 @@ export async function fetchCapsGoldBroadcastFeed() {
       // Secunderabad 999 Silver
       if (name.includes('SILVER') && name.includes('SECUNDERABAD')) {
         const rate = parseFloat(parts[3]) || parseFloat(parts[2]);
-        if (rate > 1000) {
+        if (rate > 100000) { // Silver per kg must be > 1,00,000
           silver999_1kg = rate;
           silverHigh = parseFloat(parts[4]) || rate;
           silverLow = parseFloat(parts[5]) || rate;
         }
       }
+      // CapsGold Spot Silver
+      if (name.includes('SPOT SILVER')) {
+        spotSilverUsd = parseFloat(parts[3]) || parseFloat(parts[2]);
+      }
+      // CapsGold Spot Rupee (USD/INR)
+      if (name.includes('SPOT RUPEE')) {
+        spotRupeeInr = parseFloat(parts[3]) || parseFloat(parts[2]);
+      }
     }
+  }
+
+  // If physical silver per kg is pre-market placeholder, compute from CapsGold live Spot Silver & Rupee
+  if (!silver999_1kg && spotSilverUsd > 0 && spotRupeeInr > 0) {
+    const ozToGram = 31.1034768;
+    const SILVER_PREMIUM_MULTIPLIER = 1.1810;
+    silver999_1kg = Math.round((spotSilverUsd * spotRupeeInr / ozToGram) * SILVER_PREMIUM_MULTIPLIER * 1000 * 100) / 100;
   }
 
   if (gold24k_1g && silver999_1kg) {
