@@ -1,5 +1,5 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 120px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -13,6 +13,10 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
 ::selection { background: var(--gold); color: var(--ivory); }
@@ -27,6 +31,17 @@ button { font-family: var(--sans); cursor: pointer; background: none; border: no
 }
 code { font-size: .9em; background: var(--ivory-2); padding: 2px 6px; border-radius: 3px; }
 
+/* Dedicated Professional Number Utilities */
+.num,
+.font-num {
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: -0.01em;
+}
+
 /* Utilities */
 .wrap      { max-width: var(--wrap); margin: 0 auto; padding: 0 48px; }
 .eyebrow   { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); }
@@ -40,5 +55,3 @@ code { font-size: .9em; background: var(--ivory-2); padding: 2px 6px; border-rad
 }
 
 @media (max-width: 720px) { .wrap { padding: 0 18px; } }
-
-html { scroll-padding-top: 120px; }

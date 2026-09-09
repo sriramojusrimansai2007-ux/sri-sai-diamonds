@@ -10,7 +10,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -24,6 +24,7 @@
       --border: rgba(212, 175, 55, 0.3);
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Jost', -apple-system, sans-serif;
+      --font-num: 'Outfit', 'Jost', -apple-system, sans-serif;
     }
 
     * {
@@ -105,10 +106,11 @@
     }
 
     .error-code {
-      font-family: var(--font-serif);
+      font-family: var(--font-num);
       font-size: 86px;
       font-weight: 700;
       line-height: 1;
+      font-variant-numeric: tabular-nums lining-nums;
       background: linear-gradient(135deg, #fff 0%, var(--gold-light) 50%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

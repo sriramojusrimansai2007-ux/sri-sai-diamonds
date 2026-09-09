@@ -55,8 +55,10 @@
 }
 .rate-bar__item strong {
   color: #fff;
+  font-family: var(--num);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.02em;
 }
 .rate-bar__badge {
   background: rgba(197, 160, 89, 0.2);
@@ -148,12 +150,14 @@
 }
 .hero__index > div { display: flex; flex-direction: column; }
 .hero__index strong {
-  font-family: var(--serif);
+  font-family: var(--num);
   font-size: 32px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--ink);
   line-height: 1;
   margin-bottom: 6px;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
 }
 .hero__index span {
   font-size: 10px;
@@ -457,6 +461,12 @@
   color: var(--ink-soft);
   letter-spacing: .06em;
 }
+.rates-timestamp strong {
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 600;
+  color: var(--ink);
+}
 .rates-refresh-btn {
   display: inline-flex;
   align-items: center;
@@ -558,12 +568,15 @@
   flex-wrap: wrap;
 }
 .rate-card__price-val {
-  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--num);
   font-size: 34px;
   font-weight: 600;
   color: var(--ink);
   line-height: 1;
   font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
   letter-spacing: -0.02em;
   transition: color .25s ease, text-shadow .25s ease;
 }
@@ -590,12 +603,15 @@
   gap: 4px;
   font-size: 11px;
   font-weight: 600;
-  font-family: 'Jost', sans-serif;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
   padding: 3px 8px;
   border-radius: 4px;
   margin: 4px 0 12px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 .trend-badge--up {
   background: rgba(16, 185, 129, 0.12);
@@ -618,7 +634,7 @@
   margin-top: auto;
   font-size: 13px;
   color: var(--ink-soft);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 .rate-card__breakdown li {
   display: flex;
@@ -627,8 +643,10 @@
 }
 .rate-card__breakdown strong {
   color: var(--ink);
-  font-weight: 500;
-  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
 }
 
 /* Bottom 2-Column: Detailed Table + Calculator */
@@ -680,6 +698,11 @@
   padding: 13px 10px;
   border-bottom: 1px solid var(--hairline);
   color: var(--ink-soft);
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 .rates-table tr:hover td {
   background: var(--ivory);
@@ -687,7 +710,8 @@
 }
 .rates-table td strong {
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--num);
 }
 .rates-table-note {
   font-size: 11px;
@@ -725,9 +749,12 @@
   margin-top: 4px;
 }
 .calc-preset-chip {
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 500;
   padding: 5px 12px;
-  font-size: 10px;
-  letter-spacing: .12em;
+  font-size: 11px;
+  letter-spacing: .08em;
   text-transform: uppercase;
   border: 1px solid var(--hairline);
   background: var(--ivory);
@@ -769,6 +796,15 @@
   color: var(--ink-soft);
   margin-bottom: 8px;
 }
+.calc-result-row strong {
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  color: var(--ink);
+  font-weight: 600;
+}
 .calc-result-row--total {
   border-top: 1px solid var(--hairline);
   padding-top: 12px;
@@ -784,11 +820,16 @@
   color: var(--ink);
 }
 .calc-result-total-val {
-  font-family: var(--serif);
-  font-size: 30px;
-  font-weight: 600;
+  font-family: var(--num);
+  font-size: 32px;
+  font-weight: 700;
   color: var(--gold-dark);
   line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  -moz-font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: -0.02em;
 }
 
 @media (max-width: 1100px) {
@@ -1510,13 +1551,19 @@ footer {
 }
 
 .chart-stat-item strong {
-  font-family: var(--serif);
-  font-size: 19px;
+  font-family: var(--num);
+  font-size: 20px;
   color: var(--ink);
   font-weight: 600;
   line-height: 1.2;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
+.chart-stat-change {
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 600;
+}
 .chart-stat-change.is-up { color: #065F46; }
 .chart-stat-change.is-down { color: #991B1B; }
 
@@ -1563,10 +1610,11 @@ footer {
 }
 
 .chart-tip-price {
-  font-family: var(--serif);
+  font-family: var(--num);
   font-size: 16px;
   font-weight: 600;
   color: #fff;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .chart-tip-price small {
@@ -1575,8 +1623,10 @@ footer {
 }
 
 .chart-tip-diff {
-  font-size: 10px;
+  font-family: var(--num);
+  font-size: 11px;
   margin-top: 2px;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .chart-tip-diff.is-up { color: #34D399; }
@@ -1865,12 +1915,14 @@ footer {
 
 .sizer-readout-big {
   display: block;
-  font-family: var(--serif);
-  font-size: 32px;
+  font-family: var(--num);
+  font-size: 36px;
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.1;
   margin: 2px 0;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
 }
 
 .sizer-readout-fit {
@@ -1895,6 +1947,8 @@ footer {
 .sizer-slider-label strong {
   color: var(--ink);
   font-weight: 600;
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 .sizer-slider-row {
@@ -1956,6 +2010,9 @@ footer {
 .sizer-metric-item strong {
   font-size: 13px;
   color: var(--ink);
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 600;
 }
 
 .sizer-action-btn {
@@ -2003,6 +2060,9 @@ footer {
   color: var(--ink-soft);
   cursor: pointer;
   transition: all 0.2s;
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 500;
 }
 
 .bangle-chip:hover {
@@ -2036,6 +2096,9 @@ footer {
 
 .bangle-info-row strong {
   color: var(--ink);
+  font-family: var(--num);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 600;
 }
 
 .bangle-hand-tip {
