@@ -311,7 +311,7 @@ export function initFestivalMarquee() {
   }
 
   // Today IS a festival day: reveal banner and render greetings
-  marqueeContainer.style.display = '';
+  marqueeContainer.style.display = 'block';
 
   const track = $('#festiveMarqueeTrack');
   const badge = $('#festiveMarqueeBadge');

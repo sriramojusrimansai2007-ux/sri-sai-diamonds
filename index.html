@@ -102,7 +102,6 @@
       <li><a href="#rates">Live Rates 🔴</a></li>
       <li><a href="#categories">Collections</a></li>
       <li><a href="#catalogue">Catalogue</a></li>
-      <li><a href="#sizerModal" data-open-sizer>Ring Sizer 💍</a></li>
       <li><a href="#trust">Why Sri Sai</a></li>
       <li><a href="#visit">Visit Store</a></li>
       <li><a href="#enquiry">Contact &amp; Rates</a></li>
@@ -113,7 +112,7 @@
   </nav>
 
   <!-- ============ FESTIVE WISHES MARQUEE ============ -->
-  <aside class="festive-marquee" id="festiveMarquee" aria-label="Festive greetings and auspicious wishes">
+  <aside class="festive-marquee" id="festiveMarquee" style="display: none;" aria-label="Festive greetings and auspicious wishes">
     <div class="festive-marquee__inner">
       <div class="festive-marquee__badge-wrap">
         <span class="festive-marquee__badge" id="festiveMarqueeBadge">
@@ -548,20 +547,6 @@
         Prices for bullion gold, silver, loose diamonds and gemstones fluctuate with daily market rates — <strong>contact us on WhatsApp or call for today's live rate</strong> on any piece.
       </p>
       <div class="grid" id="productGrid"><!-- rendered by JS --></div>
-
-      <!-- ============ INTERACTIVE SIZER CALLOUT BANNER ============ -->
-      <div class="sizer-banner reveal">
-        <div class="sizer-banner__content">
-          <div class="sizer-banner__icon">💍</div>
-          <div class="sizer-banner__text">
-            <span class="eyebrow">Precision Custom Fit · రింగ్ &amp; గాజుల సైజు</span>
-            <h3>Not Sure About Your Ring or Bangle Size?</h3>
-            <p>Use our interactive on-screen sizer! Place your physical ring or bangle flat on your phone or computer screen to find your exact Indian size in seconds before ordering on WhatsApp.</p>
-          </div>
-        </div>
-        <button class="btn btn--solid sizer-banner__btn" data-open-sizer id="openSizerBtn">
-          Open On-Screen Sizer 📏
-        </button>
       </div>
     </div>
   </section>
@@ -709,7 +694,6 @@
             <li><a href="#rates">Live Bullion Rates</a></li>
             <li><a href="#categories">Collections</a></li>
             <li><a href="#catalogue">Catalogue</a></li>
-            <li><a href="#sizerModal" data-open-sizer>Ring &amp; Bangle Sizer 💍</a></li>
             <li><a href="#trust">Why Sri Sai</a></li>
             <li><a href="#visit">Visit Store</a></li>
             <li><a href="#enquiry">Enquiry</a></li>
@@ -742,149 +726,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- ============ INTERACTIVE RING & BANGLE SIZER MODAL ============ -->
-  <div class="sizer-overlay" id="sizerOverlay"></div>
-  <div class="sizer-modal" id="sizerModal" role="dialog" aria-modal="true" aria-labelledby="sizerModalTitle">
-    <div class="sizer-modal__head">
-      <div>
-        <span class="eyebrow">On-Screen Measurement Guide</span>
-        <h3 id="sizerModalTitle">Find Your Exact Ring &amp; Bangle Size</h3>
-      </div>
-      <button class="sizer-modal__close" id="sizerClose" aria-label="Close sizer">×</button>
-    </div>
-
-    <!-- Sizer Navigation Tabs -->
-    <div class="sizer-tabs" role="tablist">
-      <button class="sizer-tab active" data-sizer-target="panelRing" role="tab">💍 Ring Sizer</button>
-      <button class="sizer-tab" data-sizer-target="panelBangle" role="tab">💫 Bangle Sizer</button>
-      <button class="sizer-tab" data-sizer-target="panelCalibrate" role="tab">📐 Screen Calibration</button>
-    </div>
-
-    <div class="sizer-modal__body">
-      <!-- PANEL 1: RING SIZER -->
-      <div class="sizer-panel active" id="panelRing">
-        <div class="sizer-ring-layout">
-          <div class="sizer-circle-stage">
-            <div class="sizer-circle-wrap">
-              <div class="sizer-circle" id="ringCircleVisual">
-                <div class="sizer-crosshair-v"></div>
-                <div class="sizer-crosshair-h"></div>
-              </div>
-            </div>
-            <p class="sizer-circle-instruction">
-              👆 Place your physical ring over the golden circle. Adjust the slider until the golden circle aligns with the <strong>inside edge</strong> of your ring.
-            </p>
-          </div>
-
-          <div class="sizer-ring-controls">
-            <div class="sizer-readout-card">
-              <span class="sizer-readout-label">Official Indian Size</span>
-              <strong class="sizer-readout-big" id="ringSizeValue">Size 14</strong>
-              <div class="sizer-readout-fit" id="ringFitNote">Women's Average / Men's Small</div>
-            </div>
-
-            <div class="sizer-slider-wrap">
-              <div class="sizer-slider-label">
-                <span>Adjust Diameter (mm)</span>
-                <strong id="ringDiaValue">17.2 mm</strong>
-              </div>
-              <div class="sizer-slider-row">
-                <button class="sizer-step-btn" id="ringMinus" aria-label="Decrease size">-</button>
-                <input type="range" id="ringSlider" min="14.7" max="21.6" step="0.1" value="17.2">
-                <button class="sizer-step-btn" id="ringPlus" aria-label="Increase size">+</button>
-              </div>
-            </div>
-
-            <div class="sizer-metrics-grid">
-              <div class="sizer-metric-item">
-                <span>Circumference</span>
-                <strong id="ringCircumValue">54.0 mm</strong>
-              </div>
-              <div class="sizer-metric-item">
-                <span>US &amp; UK Scale</span>
-                <strong id="ringUsUkValue">US 6.75 · UK N½</strong>
-              </div>
-            </div>
-
-            <button class="btn btn--solid sizer-action-btn" id="ringWaBtn">
-              Order Designs in This Size on WhatsApp 💬
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PANEL 2: BANGLE SIZER -->
-      <div class="sizer-panel" id="panelBangle">
-        <div class="sizer-bangle-layout">
-          <div class="sizer-circle-stage">
-            <div class="sizer-bangle-circle-wrap">
-              <div class="sizer-bangle-circle" id="bangleCircleVisual"></div>
-            </div>
-            <p class="sizer-circle-instruction">
-              Place your existing gold/glass bangle flat on the screen over the circle to match its inner diameter.
-            </p>
-          </div>
-
-          <div class="sizer-bangle-controls">
-            <span class="calc-presets-label">Select Standard Indian Bangle Size</span>
-            <div class="bangle-chips-grid">
-              <button class="bangle-chip" data-bangle-size="2-2">2-2 (54.0 mm)</button>
-              <button class="bangle-chip" data-bangle-size="2-4">2-4 (57.2 mm)</button>
-              <button class="bangle-chip active" data-bangle-size="2-6">2-6 (60.3 mm)</button>
-              <button class="bangle-chip" data-bangle-size="2-8">2-8 (63.5 mm)</button>
-              <button class="bangle-chip" data-bangle-size="2-10">2-10 (66.7 mm)</button>
-            </div>
-
-            <div class="bangle-info-box">
-              <div class="bangle-info-row">
-                 <span>Fit Recommendation:</span>
-                 <strong id="bangleDesc">Medium (Most Popular Indian Size)</strong>
-              </div>
-              <div class="bangle-info-row">
-                 <span>Inner Diameter:</span>
-                 <strong id="bangleDiaVal">60.3 mm</strong>
-              </div>
-              <div class="bangle-info-row">
-                 <span>Circumference:</span>
-                 <strong id="bangleCircumVal">189.4 mm</strong>
-              </div>
-              <div class="bangle-info-row">
-                 <span>Inches:</span>
-                 <strong id="bangleInchesVal">2.375"</strong>
-              </div>
-            </div>
-
-            <div class="bangle-hand-tip">
-              <strong>✦ How to Measure with Measuring Tape:</strong> Bring your thumb and little finger together as if putting on a bangle. Measure the widest part of your hand across the knuckles. Compare the circumference above!
-            </div>
-
-            <button class="btn btn--solid sizer-action-btn" id="bangleWaBtn">
-              Inquire Bangle Models on WhatsApp 💬
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PANEL 3: SCREEN CALIBRATION -->
-      <div class="sizer-panel" id="panelCalibrate">
-        <div class="sizer-calibrate-wrap">
-          <h4>Screen Scale Calibration (Optional)</h4>
-          <p>For 100% millimeter accuracy across any phone, tablet, or monitor, place any standard credit card, ATM card, or driving license over the box below and adjust the slider until they match.</p>
-
-          <div class="calibrate-card-preview" id="calibrateCardBox">
-            <span>Standard ATM / Credit Card (85.6 mm)</span>
-          </div>
-
-          <div class="calibrate-controls">
-            <label for="calibrateSlider">Fine-Tune Screen Scale</label>
-            <input type="range" id="calibrateSlider" min="2.5" max="5.5" step="0.05" value="3.78">
-            <button class="btn btn--gold" id="calibrateReset" style="margin-top:12px">Reset to Standard Scale</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ============ QUOTE DRAWER ============ -->
   <div class="overlay" id="overlay"></div>
