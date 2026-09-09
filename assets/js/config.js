@@ -27,7 +27,8 @@ export const CONFIG = {
     note: "Live Spot Bullion (3% GST Included · Live Updates)"
   },
 
-  // Festival Wishes Mode: 'auto' (automatic calendar date detection)
-  // or set manually to test: 'janmashtami', 'ganesh_chaturthi', 'diwali', 'dussehra', 'ugadi', 'sankranti', 'akshaya_tritiya', etc.
+  // Festival Wishes Mode: 'auto' (appears strictly on that specific festival day only; hidden on normal days)
+  // or set manually to preview anytime: 'diwali', 'ganesh_chaturthi', 'dussehra', 'ugadi', 'sankranti', 'akshaya_tritiya', etc.
+  // or set to 'none' to disable completely.
   festivalMode: 'auto'
 };
