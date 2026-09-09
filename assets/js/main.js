@@ -8,6 +8,8 @@ import { initEnquiry } from './modules/enquiry.js';
 import { initGallery } from './modules/gallery.js';
 import { initRates } from './modules/rates.js';
 import { initFestivalMarquee } from './modules/festivals.js';
+import { initRateChart } from './modules/chart.js';
+import { initSizer } from './modules/sizer.js';
 
 /* ---- Contact wiring (from config.js) ---- */
 function wireContact() {
@@ -117,7 +119,9 @@ const modules = [
   ['Quote', initQuote],
   ['Enquiry', initEnquiry],
   ['Rates', initRates],
-  ['Festivals', initFestivalMarquee]
+  ['Festivals', initFestivalMarquee],
+  ['Rate Chart', initRateChart],
+  ['Ring & Bangle Sizer', initSizer]
 ];
 
 for (const [name, fn] of modules) {
