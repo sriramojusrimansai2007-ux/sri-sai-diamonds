@@ -14,6 +14,7 @@ export function initEnquiry() {
       if (!input) return;
       const field = input.closest('.field');
       if (field) field.classList.toggle('err', !valid);
+      input.setAttribute('aria-invalid', !valid ? 'true' : 'false');
       if (!valid) ok = false;
     };
 
@@ -50,11 +51,17 @@ export function initEnquiry() {
     const waNum = CONFIG.whatsappNumber || CONFIG.phoneIntl;
     if (waNum) {
       const waUrl = `https://wa.me/${waNum}?text=${encodeURIComponent(textLines)}`;
-      window.open(waUrl, '_blank', 'noopener');
+      const win = window.open(waUrl, '_blank', 'noopener');
+      if (!win) {
+        toast('Popup blocked! Tap to open WhatsApp:', {
+          actionText: 'Open WhatsApp 💬',
+          onAction: () => window.open(waUrl, '_blank', 'noopener')
+        });
+      } else {
+        toast('Enquiry received! Opening WhatsApp to connect with you...');
+        form.reset();
+      }
     }
-
-    toast('Enquiry received! Opening WhatsApp to connect with you...');
-    form.reset();
   });
 
   // Clear error state on input / change

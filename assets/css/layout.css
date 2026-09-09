@@ -270,6 +270,13 @@
   100% { transform: translateX(-50%); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track,
+  .festive-marquee__track {
+    animation: none !important;
+  }
+}
+
 /* =========================================================
    Festive Wishes Marquee Ticker
    ========================================================= */
@@ -500,9 +507,8 @@
   overflow: hidden;
 }
 .rate-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow);
-  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(19, 16, 11, 0.12);
 }
 .rate-card::before {
   content: '';
@@ -701,14 +707,14 @@
   flex-direction: column;
   gap: 20px;
 }
-.calc-card__head h3 {
+.calc-card__head h3, .calc-head h3 {
   font-family: var(--serif);
   font-size: 26px;
   font-weight: 500;
   color: var(--ink);
   margin-bottom: 4px;
 }
-.calc-card__head p {
+.calc-card__head p, .calc-head p {
   font-size: 13px;
   color: var(--ink-muted);
 }
@@ -792,6 +798,53 @@
 @media (max-width: 640px) {
   .rates-cards-grid { grid-template-columns: 1fr; }
   .rates-meta-bar { flex-direction: column; align-items: flex-start; }
+}
+
+/* Tick flash animations for live rate updates */
+.tick-up {
+  animation: flash-green 0.5s ease;
+}
+.tick-down {
+  animation: flash-red 0.5s ease;
+}
+@keyframes flash-green {
+  0% { color: inherit; }
+  30% { color: #10b981; }
+  100% { color: inherit; }
+}
+@keyframes flash-red {
+  0% { color: inherit; }
+  30% { color: #ef4444; }
+  100% { color: inherit; }
+}
+
+/* Sync button spinning animation */
+.rates-refresh-btn.spinning .rates-refresh-icon {
+  display: inline-block;
+  animation: spin-sync 0.6s linear;
+}
+@keyframes spin-sync {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* GST included badge color */
+.gst-included {
+  color: #065F46;
+}
+
+/* Hidden trend badge */
+.trend-badge--hidden {
+  visibility: hidden;
+}
+
+/* Quick presets label */
+.calc-presets-label {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 500;
 }
 
 /* ---------- Category Grid ---------- */
@@ -962,7 +1015,8 @@
 }
 .trust-card:hover {
   transform: translateY(-4px);
-  border-color: var(--gold);
+  border-color: rgba(197, 160, 89, 0.5);
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.15);
 }
 .trust-card__badge {
   font-size: 26px;

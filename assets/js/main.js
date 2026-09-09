@@ -9,13 +9,6 @@ import { initGallery } from './modules/gallery.js';
 import { initRates } from './modules/rates.js';
 import { initFestivalMarquee } from './modules/festivals.js';
 
-/* ---- Marquee ---- */
-initMarquee([
-  '916 Hallmarked Gold', '999 Fine Silver Bullion', 'Certified Natural Diamonds',
-  'Natural Precious Gemstones', 'Professional Goldsmith Tools',
-  'B2B Wholesale & Retail', '100% Calibrated Accuracy & Honest Weight'
-]);
-
 /* ---- Contact wiring (from config.js) ---- */
 function wireContact() {
   const setHref = (id, url) => {
@@ -107,18 +100,30 @@ function wireContact() {
 }
 
 /* ---- Bootstrap Application ---- */
-try {
-  initNav();
-  initYear();
-  initReveal();
-  wireContact();
+const modules = [
+  ['Marquee', () => initMarquee([
+    '916 Hallmarked Gold', '999 Fine Silver Bullion', 'Certified Natural Diamonds',
+    'Natural Precious Gemstones', 'Professional Goldsmith Tools',
+    'B2B Wholesale & Retail', '100% Calibrated Accuracy & Honest Weight'
+  ])],
+  ['Nav', initNav],
+  ['Year', initYear],
+  ['Reveal', initReveal],
+  ['Contact', wireContact],
+  ['Gallery & Catalogue', () => {
+    const gallery = initGallery();
+    initCatalogue(addToQuote, gallery.open);
+  }],
+  ['Quote', initQuote],
+  ['Enquiry', initEnquiry],
+  ['Rates', initRates],
+  ['Festivals', initFestivalMarquee]
+];
 
-  const gallery = initGallery();
-  initCatalogue(addToQuote, gallery.open);
-  initQuote();
-  initEnquiry();
-  initRates();
-  initFestivalMarquee();
-} catch (err) {
-  console.error('Initialization error:', err);
+for (const [name, fn] of modules) {
+  try {
+    fn();
+  } catch (err) {
+    console.error(`[Init] Error in ${name}:`, err);
+  }
 }

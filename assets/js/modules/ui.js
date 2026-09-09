@@ -50,10 +50,11 @@ export function initMarquee(words) {
   const mq = $('#mq');
   if (!mq) return;
   const chunk = words.map(w => `<span>${w}</span><i>◆</i>`).join('');
-  mq.innerHTML = chunk + chunk + chunk + chunk;
+  mq.innerHTML = chunk + `<span aria-hidden="true">${chunk + chunk + chunk}</span>`;
 }
 
 export function initYear() {
-  $('#year').textContent = new Date().getFullYear();
+  const el = $('#year');
+  if (el) el.textContent = new Date().getFullYear();
 }
 

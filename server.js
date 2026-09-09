@@ -97,6 +97,29 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Security: block access to sensitive files and directories
+  const forbiddenPatterns = [
+    /^\/(\.)/,              // Dotfiles (.env, .git, .gitignore, .npmrc)
+    /^\/server(\/|$)/,      // Server backend source code
+    /^\/test(\/|$)/,        // Test files
+    /^\/package\.json/,     // package.json
+    /^\/package-lock\.json/,// package-lock.json
+    /^\/netlify(\/|$)/,     // Netlify functions & config
+    /^\/netlify\.toml/,     // Netlify config
+    /^\/node_modules(\/|$)/ // Node modules
+  ];
+  if (forbiddenPatterns.some(pattern => pattern.test(pathname))) {
+    const notFoundPath = path.join(__dirname, '404.html');
+    if (fs.existsSync(notFoundPath)) {
+      res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+      fs.createReadStream(notFoundPath).pipe(res);
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('404 Not Found');
+    }
+    return;
+  }
+
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       const notFoundPath = path.join(__dirname, '404.html');
@@ -113,9 +136,24 @@ const server = http.createServer(async (req, res) => {
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
+    const stream = fs.createReadStream(filePath);
+    stream.on('error', () => {
+      if (!res.headersSent) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('500 Internal Server Error');
+      }
+    });
     res.writeHead(200, { 'Content-Type': contentType });
-    fs.createReadStream(filePath).pipe(res);
+    stream.pipe(res);
   });
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`[Server Error] Port ${PORT} is already in use. Please terminate existing process or use another port.`);
+  } else {
+    console.error('[Server Error]', err);
+  }
 });
 
 server.listen(PORT, () => {

@@ -63,6 +63,32 @@ export const FESTIVALS = [
     ]
   },
   {
+    id: 'sri_rama_navami',
+    name: 'Sri Rama Navami',
+    teluguName: 'శ్రీ రామ నవమి',
+    badge: '🏹 శ్రీరామ నవమి శుభాకాంక్షలు ✦ SRI RAMA NAVAMI',
+    // Late Mar - Mid Apr
+    match: (m, d) => m === 2 && d >= 25 && d <= 31,
+    items: [
+      '🏹 శ్రీ సీతారాముల కళ్యాణ మహోత్సవ & శ్రీరామ నవమి శుభాకాంక్షలు! 🏹',
+      'Jai Sri Ram! Wishing you divine grace, peace and prosperity on Sri Rama Navami from Sri Sai Diamonds & Tools!',
+      '🪷 Auspicious Silver Pattabhishekam Coins, Silver Rama Idols & Gold Ornaments in Stock! 🪷'
+    ]
+  },
+  {
+    id: 'eid',
+    name: 'Eid-ul-Fitr / Eid Mubarak',
+    teluguName: 'ఈద్ ముబారక్',
+    badge: '🌙 ఈద్ ముబారక్ ✦ EID MUBARAK',
+    // Mar / Apr / May window
+    match: (m, d) => m === 2 && d >= 18 && d <= 24,
+    items: [
+      '🌙 ఈద్ ముబారక్! Eid Mubarak from Sri Sai Diamonds & Tools! 🌙',
+      'Wishing peace, joy, togetherness and prosperity to you and your loved ones on this blessed occasion!',
+      '✨ Celebrate precious moments with handcrafted certified gold & diamond jewellery! ✨'
+    ]
+  },
+  {
     id: 'ugadi',
     name: 'Ugadi & Gudi Padwa (Telugu New Year)',
     teluguName: 'నూతన సంవత్సర ఉగాది పర్వదినం',
@@ -74,19 +100,6 @@ export const FESTIVALS = [
       'Happy Ugadi & Gudi Padwa from Sri Sai Diamonds & Tools! May this auspicious Telugu New Year usher in happiness, vitality and golden abundance!',
       '🌸 Welcome the New Year with 916 Hallmarked Gold ornaments, Silver Pooja items & Astrological Gemstones! 🌸',
       '✨ Exclusive Ugadi Festive Benefits & Transparent Live Bullion Billing! ✨'
-    ]
-  },
-  {
-    id: 'sri_rama_navami',
-    name: 'Sri Rama Navami',
-    teluguName: 'శ్రీ రామ నవమి',
-    badge: '🏹 శ్రీరామ నవమి శుభాకాంక్షలు ✦ SRI RAMA NAVAMI',
-    // Late Mar - Mid Apr
-    match: (m, d) => m === 2 && d >= 25 && d <= 31,
-    items: [
-      '🏹 శ్రీ సీతారాముల కళ్యాణ మహోత్సవ & శ్రీరామ నవమి శుభాకాంక్షలు! 🏹',
-      'Jai Sri Ram! Wishing you divine grace, peace and prosperity on Sri Rama Navami from Sri Sai Diamonds & Tools!',
-      '🪷 Auspicious Silver Pattabhishekam Coins, Silver Rama Idols & Gold Ornaments in Stock! 🪷'
     ]
   },
   {
@@ -104,19 +117,6 @@ export const FESTIVALS = [
     ]
   },
   {
-    id: 'eid',
-    name: 'Eid-ul-Fitr / Eid Mubarak',
-    teluguName: 'ఈద్ ముబారక్',
-    badge: '🌙 ఈద్ ముబారక్ ✦ EID MUBARAK',
-    // Mar / Apr / May window
-    match: (m, d) => m === 2 && d >= 18 && d <= 24,
-    items: [
-      '🌙 ఈద్ ముబారక్! Eid Mubarak from Sri Sai Diamonds & Tools! 🌙',
-      'Wishing peace, joy, togetherness and prosperity to you and your loved ones on this blessed occasion!',
-      '✨ Celebrate precious moments with handcrafted certified gold & diamond jewellery! ✨'
-    ]
-  },
-  {
     id: 'bonalu',
     name: 'Telangana Bonalu Jathara',
     teluguName: 'తెలంగాణ బోనాల సంబరాలు',
@@ -130,12 +130,24 @@ export const FESTIVALS = [
     ]
   },
   {
+    id: 'independence_day',
+    name: 'Independence Day',
+    teluguName: 'స్వాతంత్ర్య దినోత్సవం',
+    badge: '🇮🇳 స్వాతంత్ర్య దినోత్సవ శుభాకాంక్షలు ✦ INDEPENDENCE DAY',
+    // Aug 14 - Aug 16
+    match: (m, d) => m === 7 && d >= 14 && d <= 16,
+    items: [
+      '🇮🇳 స్వాతంత్ర్య దినోత్సవ శుభాకాంక్షలు! 🇮🇳',
+      'Happy Independence Day from Sri Sai Diamonds & Tools! Proudly serving with 100% Indian craftsmanship, BIS hallmark integrity & certified trust! 🇮🇳'
+    ]
+  },
+  {
     id: 'varalakshmi',
     name: 'Sri Varalakshmi Vratam',
     teluguName: 'శ్రీ వరలక్ష్మీ వ్రతం',
     badge: '🪷 వరలక్ష్మీ వ్రత శుభాకాంక్షలు ✦ VARALAKSHMI VRATAM',
-    // August
-    match: (m, d) => m === 7 && d >= 15 && d <= 25,
+    // August (after Independence Day)
+    match: (m, d) => m === 7 && d >= 17 && d <= 25,
     items: [
       '🪷 శ్రీ వరలక్ష్మీ వ్రత పర్వదిన శుభాకాంక్షలు! 🪷',
       'Auspicious Sri Varalakshmi Vratam Greetings from Sri Sai Diamonds & Tools! Welcome Goddess Lakshmi with divine purity!',
@@ -153,18 +165,6 @@ export const FESTIVALS = [
       '🎁 రక్షాబంధన్ & రాఖీ పౌర్ణమి శుభాకాంక్షలు! 🎁',
       'Happy Raksha Bandhan from Sri Sai Diamonds & Tools! Celebrate the eternal bond of love and protection!',
       '✨ Pure 925 Silver Rakhis, Diamond Solitaire Rings and Timeless Gold Gifts for your beloved siblings! ✨'
-    ]
-  },
-  {
-    id: 'independence_day',
-    name: 'Independence Day',
-    teluguName: 'స్వాతంత్ర్య దినోత్సవం',
-    badge: '🇮🇳 స్వాతంత్ర్య దినోత్సవ శుభాకాంక్షలు ✦ INDEPENDENCE DAY',
-    // Aug 14 - Aug 16
-    match: (m, d) => m === 7 && d >= 14 && d <= 16,
-    items: [
-      '🇮🇳 స్వాతంత్ర్య దినోత్సవ శుభాకాంక్షలు! 🇮🇳',
-      'Happy Independence Day from Sri Sai Diamonds & Tools! Proudly serving with 100% Indian craftsmanship, BIS hallmark integrity & certified trust! 🇮🇳'
     ]
   },
   {
@@ -336,8 +336,8 @@ export function initFestivalMarquee() {
       <i class="festive-sep">✦</i>
     `).join('');
 
-    // Duplicate chunks to create an unbroken seamless infinite loop
-    track.innerHTML = chunk + chunk + chunk;
+    // Duplicate chunks to create an unbroken seamless infinite loop (aria-hidden on clones for screen readers)
+    track.innerHTML = chunk + `<span aria-hidden="true">${chunk + chunk}</span>`;
   }
 }
 

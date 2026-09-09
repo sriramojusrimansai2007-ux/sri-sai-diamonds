@@ -2,6 +2,7 @@
   publish = "."
   functions = "netlify/functions"
 
+# API Redirects
 [[redirects]]
   from = "/api/rates"
   to = "/.netlify/functions/rates"
@@ -12,3 +13,33 @@
   to = "/.netlify/functions/rates"
   status = 200
 
+# Security: Block sensitive files from being publicly served
+[[redirects]]
+  from = "/.env*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/server/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/test/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package*.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# 404 Fallback page
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

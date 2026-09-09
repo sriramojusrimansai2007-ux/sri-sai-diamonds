@@ -19,6 +19,11 @@
   --success:      #387C52;
   --hairline:     rgba(197, 160, 89, 0.22);
   --hairline-dark:rgba(255, 255, 255, 0.12);
+  --focus-ring:   rgba(197, 160, 89, 0.6);
+  --trend-up:     #065F46;
+  --trend-up-bg:  rgba(16, 185, 129, 0.1);
+  --trend-down:   #991B1B;
+  --trend-down-bg:rgba(239, 68, 68, 0.1);
 
   /* Typography */
   --serif: 'Cormorant Garamond', Georgia, serif;

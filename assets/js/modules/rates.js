@@ -5,7 +5,7 @@
    ========================================================= */
 
 import { CONFIG } from '../config.js';
-import { $, $$, el } from './dom.js';
+import { $, $$ } from './dom.js';
 import { toast } from './ui.js';
 
 // Benchmark baseline rates calibrated to CapsGold Secunderabad + shop adjustments (+₹400/10g Gold, +₹25/10g Silver)
@@ -48,9 +48,26 @@ export async function initRates() {
   // Start 1-second high-frequency streaming tick engine (like live stocks)
   startSecondBySecondTicks();
 
-  // Fast background API sync every 3 seconds for direct live CapsGold stream
+  // Background API sync every 30 seconds for live CapsGold stream
   if (apiSyncInterval) clearInterval(apiSyncInterval);
-  apiSyncInterval = setInterval(fetchLiveSpotFeed, 3000);
+  apiSyncInterval = setInterval(fetchLiveSpotFeed, 30000);
+
+  // Pause API polling and micro-ticks when browser tab is hidden to conserve resources
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (apiSyncInterval) {
+          clearInterval(apiSyncInterval);
+          apiSyncInterval = null;
+        }
+      } else {
+        fetchLiveSpotFeed();
+        if (!apiSyncInterval) {
+          apiSyncInterval = setInterval(fetchLiveSpotFeed, 30000);
+        }
+      }
+    });
+  }
 
   // Manual refresh button
   if (typeof document !== 'undefined') {
@@ -74,6 +91,7 @@ function startSecondBySecondTicks() {
   if (oneSecInterval) clearInterval(oneSecInterval);
 
   oneSecInterval = setInterval(() => {
+    if (typeof document !== 'undefined' && document.hidden) return;
     liveRates.lastUpdated = new Date();
 
     // Natural micro-fluctuation around live benchmark
@@ -307,7 +325,6 @@ function initCalculator() {
   const metalSelect = $('#calcMetal');
   const qtyInput = $('#calcQty');
   const unitSelect = $('#calcUnit');
-  const gstToggle = $('#calcGst');
   const presetButtons = $$('[data-calc-preset]');
 
   const runCalc = () => recalcLivePrice();
@@ -315,13 +332,13 @@ function initCalculator() {
   if (metalSelect) metalSelect.addEventListener('change', runCalc);
   if (qtyInput) qtyInput.addEventListener('input', runCalc);
   if (unitSelect) unitSelect.addEventListener('change', runCalc);
-  if (gstToggle) gstToggle.addEventListener('change', runCalc);
 
   presetButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       presetButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       if (qtyInput) qtyInput.value = btn.dataset.calcPreset;
+      if (unitSelect) unitSelect.value = 'grams';
       runCalc();
     });
   });
@@ -356,7 +373,6 @@ function recalcLivePrice() {
   const metalSelect = $('#calcMetal');
   const qtyInput = $('#calcQty');
   const unitSelect = $('#calcUnit');
-  const gstToggle = $('#calcGst');
 
   if (!metalSelect || !qtyInput) return;
 
