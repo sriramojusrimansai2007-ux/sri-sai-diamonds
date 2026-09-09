@@ -48,9 +48,9 @@ export async function initRates() {
   // Start 1-second high-frequency streaming tick engine (like live stocks)
   startSecondBySecondTicks();
 
-  // Background API sync every 30 seconds for live CapsGold stream
+  // Background API sync every 5 seconds for live CapsGold stream
   if (apiSyncInterval) clearInterval(apiSyncInterval);
-  apiSyncInterval = setInterval(fetchLiveSpotFeed, 30000);
+  apiSyncInterval = setInterval(fetchLiveSpotFeed, 5000);
 
   // Pause API polling and micro-ticks when browser tab is hidden to conserve resources
   if (typeof document !== 'undefined') {
@@ -63,7 +63,7 @@ export async function initRates() {
       } else {
         fetchLiveSpotFeed();
         if (!apiSyncInterval) {
-          apiSyncInterval = setInterval(fetchLiveSpotFeed, 30000);
+          apiSyncInterval = setInterval(fetchLiveSpotFeed, 5000);
         }
       }
     });
