@@ -24,6 +24,12 @@ img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font-family: var(--sans); cursor: pointer; background: none; border: none; color: inherit; }
 
+/* Mobile tap optimization (removes sticky tap delay & default grey box) */
+button, a, input, select, textarea, [role="button"], .chip, .calc-preset-chip {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
